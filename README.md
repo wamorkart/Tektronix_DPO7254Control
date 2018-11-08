@@ -17,7 +17,7 @@ Tektronix DPO7254 Oscilloscope stand-alone and DAQ-integrated control implemente
  The Phyton script to run the acquisition can be found in the machine otsdaq@ftbf-daq-08. You'll need to create the python environment 
  
  - ssh otsdaq@ftbf-daq-08.FNAL.GOV   (you need to be included in the users list)
- - cd /home/otsdaq/NetScope_standalone/DPO7254COntrol
+ - cd /home/otsdaq/NetScope_standalone/Tektronix_DPO7254Control/RunOscilloscope
  - source /home/otsdaq/CMSTimingSetup.sh 
   
   ### Installation
@@ -34,10 +34,12 @@ Tektronix DPO7254 Oscilloscope stand-alone and DAQ-integrated control implemente
  ## Standalone configuration
  The oscilloscope can run completely independent from the Otsdaq. The number of triggers to acquire is set as script options.
  
- IMPORTANT: the Run number is auto generated!
+  - python dpo_fastframe.py --totalNumber= <int>  --numFrames='int' 
  
- - Triggers number =  numbr of data / # of sample
- - python dpo_fastframe.py 'totalNumber' 'numFrames' 
+ Remember: 
+ *Triggers number =  # of data / # of sample
+ * numFrames is not striclty required, set to 500 by default
+ 
  
  ### Output Raw files
  The Raw data files generated are binary waveforms file in the format ".wfm". They can be recalled from the scope to be displayed. 
