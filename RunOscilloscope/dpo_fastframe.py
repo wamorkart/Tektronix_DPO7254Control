@@ -4,13 +4,23 @@ FNAL November 2018
 CMS MTD ETL Test beam
 """
 
-import visa
 import numpy as np
 import matplotlib.pyplot as plt
 import sys
 import optparse
 import argparse
 import signal
+stop_asap = False
+
+def signal_handler(sig,frame):
+    global stop_asap
+    stop_asap = True
+    print("Emergency stop: Closing")
+signal.signal(signal.SIGINT,signal_handler)
+signal.signal(signal.SIGTERM,signal_handler)
+
+
+import visa
 
 
 def get_waveform_info():
@@ -49,17 +59,6 @@ def get_waveform_info():
     else:
         raise visa.InvalidBinaryFormat
     return dType, bigEndian
-
-
-stop_asap = False
-
-def signal_handler(sig,frame):
-    global stop_asap
-    stop_asap = True
-    print("Emergency stop: Closing")
-signal.signal(signal.SIGINT,signal_handler)
-
-
 
 
 
@@ -181,4 +180,3 @@ while (i*numFrames<totalNumber) and stop_asap==False:
 
 
 dpo.close()
-
