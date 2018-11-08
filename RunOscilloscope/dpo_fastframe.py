@@ -9,8 +9,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 import sys
 import optparse
-
-
+import argparse
+import signal
 
 
 def get_waveform_info():
@@ -51,6 +51,19 @@ def get_waveform_info():
     return dType, bigEndian
 
 
+stop_asap = False
+
+def signal_handler(sig,frame):
+    global stop_asap
+    stop_asap = True
+    print("Emergency stop: Closing")
+signal.signal(signal.SIGINT,signal_handler)
+
+
+
+
+
+
 """#################SEARCH/CONNECT#################"""
 # establish communication with dpo
 rm = visa.ResourceManager()
@@ -61,11 +74,19 @@ print(dpo.query('*idn?'))
 # dpo.write('*rst')
 
 
+parser = argparse.ArgumentParser(description='Run info.')
+
+parser.add_argument('--totalNumber', metavar='tot', type=int,help='totalNumber of data point',required=True)
+parser.add_argument('--numFrames',metavar='Frames', type=str,default = 500, help='numFrames (default 500)',required=False)
+
+args = parser.parse_args()
+
+
 """#################CONFIGURE INSTRUMENT#################"""
 # variables for individual settings
 hScale = 0.1e-6
-numFrames = 500
-totalNumber = 500
+numFrames = int(args.totalNumber)
+totalNumber = int(args.numFrames)
 vScale = 0.5
 vPos = -2.5
 trigLevel = 0.15
@@ -127,7 +148,7 @@ dpo.read_termination = '\n'
 """#################ACQUIRE DATA#################"""
 i = 0
 filename='{}/fastframe'.format(path)
-while (i*numFrames<totalNumber):
+while (i*numFrames<totalNumber) and stop_asap==False:
     i+=1
     print('Acquiring waveform.')
     dpo.write('acquire:stopafter sequence')
@@ -139,7 +160,7 @@ while (i*numFrames<totalNumber):
     dpo.write('save:waveform ch2, "%s_%d_CH2.wfm"'%(filename,i))
     dpo.write('save:waveform ch3, "%s_%d_CH3.wfm"'%(filename,i))
     dpo.write('save:waveform ch4, "%s_%d_CH4.wfm"'%(filename,i))
-    # dpo.write('save:waveform Ch2, "C:/testdicazz2.wfm"')
+
     print('Waveform saved.\n')
 
 
@@ -160,3 +181,4 @@ while (i*numFrames<totalNumber):
 
 
 dpo.close()
+
