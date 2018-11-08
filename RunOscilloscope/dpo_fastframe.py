@@ -178,5 +178,4 @@ while (i*numFrames<totalNumber) and stop_asap==False:
 #     'curve?', datatype=dType, is_big_endian=bigEndian, container=np.array)
 #
 
-
 dpo.close()
