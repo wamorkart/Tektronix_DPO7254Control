@@ -6,6 +6,12 @@ Tektronix DPO7254 Oscilloscope stand-alone and DAQ-integrated control implemente
   * [Required directories](#required-directories)
 - [Standalone-configuration](#standalone-configuration)
   * [Output files](#output_files) 
+  * [.root files reconstruction](#.root-files-reconstruction) 
+
+  
+  
+  
+  
   
   ## Quick start
  The Phyton script to run the acquisition can be found in the machine otsdaq@ftbf-daq-08. You'll need to create the python environment 
@@ -33,13 +39,17 @@ Tektronix DPO7254 Oscilloscope stand-alone and DAQ-integrated control implemente
  - Triggers number =  numbr of data / # of sample
  - python dpo_fastframe.py 'totalNumber' 'numFrames' 
  
- ### Output files
- The data files generated are waveforms file in the format ".wfm". They can be recalled from the scope to be displayed. 
+ ### Output Raw files
+ The Raw data files generated are binary waveforms file in the format ".wfm". They can be recalled from the scope to be displayed. 
  The files are saved locally in a shared directory connected to the otsdaq: 
+ /Tektronix
  
-[otsdaq@ftbf-daq-08 Tektronix}
+[otsdaq@ftbf-daq-08 Tektronix]
  
- 
+
+### .root files reconstruction
+
+
  
  
  
