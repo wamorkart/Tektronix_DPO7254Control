@@ -43,7 +43,7 @@ Tektronix DPO7254 Oscilloscope stand-alone and DAQ-integrated control implemente
  
  ### Output Raw files
  The Raw data files generated are binary waveforms file in the format ".wfm". They can be recalled from the scope to be displayed. 
- The files are saved locally in a shared directory connected to the otsdaq: 
+ The files are saved locally in a shared directory connected to the ftbf-daq-08: 
  /Tektronix
  
 [otsdaq@ftbf-daq-08 Tektronix]
@@ -55,7 +55,7 @@ To reconstruct root files from the RAW wfm
 - source /home/otsdaq/CMSTimingSetup.sh 
 - converison.py InputDir RECO/OutputFile
 
- REMEMBER
+ REMEMBER:
  
  
  
