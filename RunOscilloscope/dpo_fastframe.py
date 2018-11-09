@@ -83,12 +83,12 @@ args = parser.parse_args()
 
 """#################CONFIGURE INSTRUMENT#################"""
 # variables for individual settings
-hScale = 0.1e-6
+hScale = 10e-9
 numFrames = int(args.totalNumber)
 totalNumber = int(args.numFrames)
 vScale = 0.5
 vPos = -2.5
-trigLevel = 0.15
+trigLevel = - 0.03
 
 
 
@@ -177,5 +177,6 @@ while (i*numFrames<totalNumber) and stop_asap==False:
 # data = dpo.query_binary_values(
 #     'curve?', datatype=dType, is_big_endian=bigEndian, container=np.array)
 #
+
 
 dpo.close()
