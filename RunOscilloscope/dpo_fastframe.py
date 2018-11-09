@@ -84,8 +84,8 @@ args = parser.parse_args()
 """#################CONFIGURE INSTRUMENT#################"""
 # variables for individual settings
 hScale = 10e-9
-numFrames = int(args.totalNumber)
-totalNumber = int(args.numFrames)
+numFrames = int(args.numFrames)
+totalNumber = int(args.totalNumber)
 vScale = 0.5
 vPos = -2.5
 trigLevel = - 0.03
