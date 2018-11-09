@@ -164,7 +164,7 @@ while (i*numFrames<totalNumber) and stop_asap==False:
     dpo.write('save:waveform ch4, "%s_%d_CH4.wfm"'%(filename,i))
                                               
    
-copy(path,"/Tektronix/")   
+copy("/Tektronix/","/lxplus/Scope_standalone/RAW/")  
      
 print('Waveform saved.\n')
 
