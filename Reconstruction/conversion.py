@@ -1,5 +1,5 @@
 import time
-import matplotlib.pyplot as plt # https://matplotlib.org/
+#import matplotlib.pyplot as plt # https://matplotlib.org/
 import numpy as np # http://www.numpy.org/
 import tekwfm
 import os,sys
