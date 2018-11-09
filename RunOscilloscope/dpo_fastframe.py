@@ -69,8 +69,9 @@ def copytree(src, dst, symlinks=False, ignore=None):
         s = os.path.join(src, item)
         d = os.path.join(dst, item)
         shutil.copytree(item, d, symlinks, ignore)
-
-
+def copynew
+    for files in source:
+        shutil.copy(files,destination)
 
 """#################SEARCH/CONNECT#################"""
 # establish communication with dpo
@@ -172,7 +173,7 @@ while (i*numFrames<totalNumber) and stop_asap==False:
 path_ftbf = "/Tektronix/test_run{}".format(runNumber)
 path_lxplus = ("/lxplus/Scope_standalone/RAW/test_run%d"%(runNumber))
 print(path_lxplus)
-copytree(path_ftbf,path_lxplus)  
+copynew(path_ftbf,path_lxplus)  
      
 print('Waveform saved.\n')
 
