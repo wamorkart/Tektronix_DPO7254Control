@@ -72,10 +72,6 @@ int main (int argc, char** argv)
     }
   }
 
-  //Change MCP if channel>8
-  if (secondchannel>8)
-    firstchannel=9;
-
   if (filename == "") {
     std::cout << "Input file required! For help use:" << std::endl;
     std::cout << argv[0] << " --help" << std::endl;
@@ -107,92 +103,107 @@ int main (int argc, char** argv)
 
   std::cout<<"Filling "<<filename<<" with "<<filename<<std::endl;
 
-  if (cfd_threshold > 0) {
-    if (lowpass>=0) {
-      AlgorithmParameters par(0.5, cfd_threshold, threshold_MCP,threshold,lowpass,hysteresis,min_amplitude_MCP, max_amplitude_MCP, min_amplitude_ch2, max_amplitude_ch2,baseline_p);
-      double timeres_ps = example_analyzeData.executeTimeDifferenceWithMCP<AlgorithmParameters>(f_root, ComputeExactTimeCFD, par, firstchannel, secondchannel)*1e12;
-      // std::cout << "############ RESULTS: Time difference " << timeres_ps << " +- " << par.errorOnSigma << " ps, using " << par.found << " coincidences" << std::endl;
+  bool channelScan=true;
+  int secondchannel_local = -1;
+  while (channelScan and secondchannel_local<4) {
+    if (secondchannel>=0) {
+      channelScan=false;
+      secondchannel_local = secondchannel;
+    }
+    else {
+      ++secondchannel_local;
+    }
+    TString ch_dir_name("channel_");
+    ch_dir_name += secondchannel_local;
+    TDirectory* ch_dir = f_root->mkdir(ch_dir_name);
 
-      if (par.sigmaOfCh1Amplitude < 0.001)
-        empty=true;
-      if (par.found>300)
-        full=true;
-      else
-        low=true;
-    }
-    else {
-      TDirectory* lowpass_dir = f_root->mkdir("lowpass_scan");
-      TGraphErrors lowpass_graph;
-      lowpass_graph.SetName("lowpass_scan");
-      int lowpass_counter=0;
-      std::cout<< "Starting lowpass scan" <<std::endl;
-      for (float lowpass_tmp=0.4e9; lowpass_tmp<1.5e9; lowpass_tmp+=std::abs(lowpass)) {
-        std::cout<< "############ SCAN: Lowpass Frequency set to " << lowpass_tmp << " Hz ############" <<std::endl;
-        TString lowpass_tmpdir_name("lowpass_");
-        lowpass_tmpdir_name += (int) (1e-6*lowpass_tmp);
-        lowpass_tmpdir_name += "_MHz";
-        TDirectory* cfd_tmpdir = f_root->mkdir(lowpass_tmpdir_name);
-        cfd_tmpdir->cd();
-        AlgorithmParameters par( 0.5, cfd_threshold, threshold_MCP,threshold,lowpass_tmp,hysteresis,min_amplitude_MCP, max_amplitude_MCP, min_amplitude_ch2, max_amplitude_ch2,baseline_p);  //Fixed cfd_threshold for ch0
-        double timeres_ps = example_analyzeData.executeTimeDifferenceWithMCP<AlgorithmParameters>(f_root, ComputeExactTimeCFD, par, firstchannel, secondchannel)*1e12;
-        std::cout << "############ SCAN: Time difference " << timeres_ps << " +- " << par.errorOnSigma << " ps, using " << par.found << " coincidences ############" << std::endl;
-        if (timeres_ps<100) {
-          lowpass_graph.SetPoint(lowpass_counter, lowpass_tmp, timeres_ps);
-          lowpass_graph.SetPointError(lowpass_counter++, 0, 1./std::sqrt(par.found));
-        }
+    if (cfd_threshold > 0) {
+      if (lowpass>=0) {
+        AlgorithmParameters par(0.5, cfd_threshold, threshold_MCP,threshold,lowpass,hysteresis,min_amplitude_MCP, max_amplitude_MCP, min_amplitude_ch2, max_amplitude_ch2,baseline_p);
+        double timeres_ps = example_analyzeData.executeTimeDifferenceWithMCP<AlgorithmParameters>(f_root, ComputeExactTimeCFD, par, firstchannel, secondchannel_local)*1e12;
+        // std::cout << "############ RESULTS: Time difference " << timeres_ps << " +- " << par.errorOnSigma << " ps, using " << par.found << " coincidences" << std::endl;
+
+        if (par.sigmaOfCh1Amplitude < 0.001)
+          empty=true;
+        if (par.found>300)
+          full=true;
+        else
+          low=true;
       }
-     lowpass_dir->cd();
-     lowpass_graph.Write();
-    }
-  }
-  else {
-    if (lowpass>=0) {
-      TDirectory* cfd_dir = f_root->mkdir("cfd_scan");
-      TGraphErrors cfd_graph;
-      cfd_graph.SetName("cfd_scan");
-      int cfd_counter=0;
-      for (float cfd_th=std::abs(cfd_threshold); cfd_th<1; cfd_th+=std::abs(cfd_threshold)) {
-        std::cout<< "############ SCAN: CFD fraction " << cfd_th << " ############" <<std::endl;
-        TString cfd_tmpdir_name("cfd_");
-        cfd_tmpdir_name += (int) (100*cfd_th);
-        cfd_tmpdir_name += "_percent";
-        TDirectory* cfd_tmpdir = f_root->mkdir(cfd_tmpdir_name);
-        cfd_tmpdir->cd();
-        AlgorithmParameters par( 0.5, cfd_th, threshold_MCP,threshold,lowpass,hysteresis,min_amplitude_MCP, max_amplitude_MCP, min_amplitude_ch2, max_amplitude_ch2,baseline_p);  //Fixed cfd_threshold for ch0
-        double timeres_ps = example_analyzeData.executeTimeDifferenceWithMCP<AlgorithmParameters>(f_root, ComputeExactTimeCFD, par, firstchannel, secondchannel)*1e12;
-        std::cout << "############ SCAN: Time difference " << timeres_ps << " +- " << par.errorOnSigma << " ps, using " << par.found << " coincidences ############" << std::endl;
-        cfd_graph.SetPoint(cfd_counter, cfd_th, timeres_ps);
-        cfd_graph.SetPointError(cfd_counter++, 0, timeres_ps/std::sqrt(par.found));
-      }
-      cfd_dir->cd();
-      cfd_graph.Write();
-    }
-    else {
-      TDirectory* bidim_dir = f_root->mkdir("2d_scan");
-      TGraph2DErrors bidim_graph;
-      bidim_graph.SetName("bidim_scan");
-      int bidim_counter=0;
-      for (float lowpass_tmp=std::abs(lowpass); lowpass_tmp<1.0e9; lowpass_tmp+=std::abs(lowpass)) {
-        for (float cfd_th=std::abs(cfd_threshold); cfd_th<1; cfd_th+=std::abs(cfd_threshold)) {
-          std::cout<< "############ SCAN: Lowpass Frequency set to " << lowpass_tmp << " Hz, CFD " << (int) (100*cfd_th) << " % ############" <<std::endl;
-          TString bidim_tmpdir_name("bidim_");
-          bidim_tmpdir_name += (int) (1e-6*lowpass_tmp);
-          bidim_tmpdir_name += "_MHz_";
-          bidim_tmpdir_name += (int) (100*cfd_th);
-          bidim_tmpdir_name += "_percent";
-          TDirectory* cfd_tmpdir = f_root->mkdir(bidim_tmpdir_name);
+      else {
+        TDirectory* lowpass_dir = ch_dir->mkdir("lowpass_scan");
+        TGraphErrors lowpass_graph;
+        lowpass_graph.SetName("lowpass_scan");
+        int lowpass_counter=0;
+        std::cout<< "Starting lowpass scan" <<std::endl;
+        for (float lowpass_tmp=0.4e9; lowpass_tmp<1.5e9; lowpass_tmp+=std::abs(lowpass)) {
+          std::cout<< "############ SCAN: Lowpass Frequency set to " << lowpass_tmp << " Hz ############" <<std::endl;
+          TString lowpass_tmpdir_name("lowpass_");
+          lowpass_tmpdir_name += (int) (1e-6*lowpass_tmp);
+          lowpass_tmpdir_name += "_MHz";
+          TDirectory* cfd_tmpdir = ch_dir->mkdir(lowpass_tmpdir_name);
           cfd_tmpdir->cd();
-          AlgorithmParameters par( 0.5, cfd_th, threshold_MCP,threshold,lowpass_tmp,hysteresis,min_amplitude_MCP, max_amplitude_MCP, min_amplitude_ch2, max_amplitude_ch2,baseline_p);  //Fixed cfd_threshold for ch0
-          double timeres_ps = example_analyzeData.executeTimeDifferenceWithMCP<AlgorithmParameters>(f_root, ComputeExactTimeCFD, par, firstchannel, secondchannel)*1e12;
-          std::cout << "############ SCAN: Time difference " << timeres_ps << " +- " << par.errorOnSigma << " ps, using " << par.found << " coincidences" << std::endl;
+          AlgorithmParameters par( 0.5, cfd_threshold, threshold_MCP,threshold,lowpass_tmp,hysteresis,min_amplitude_MCP, max_amplitude_MCP, min_amplitude_ch2, max_amplitude_ch2,baseline_p);  //Fixed cfd_threshold for ch0
+          double timeres_ps = example_analyzeData.executeTimeDifferenceWithMCP<AlgorithmParameters>(f_root, ComputeExactTimeCFD, par, firstchannel, secondchannel_local)*1e12;
+          std::cout << "############ SCAN: Time difference " << timeres_ps << " +- " << par.errorOnSigma << " ps, using " << par.found << " coincidences ############" << std::endl;
           if (timeres_ps<100) {
-            bidim_graph.SetPoint(bidim_counter, lowpass_tmp, cfd_th, timeres_ps);
-            bidim_graph.SetPointError(bidim_counter++, 0, 0, 1./std::sqrt(par.found));
+            lowpass_graph.SetPoint(lowpass_counter, lowpass_tmp, timeres_ps);
+            lowpass_graph.SetPointError(lowpass_counter++, 0, 1./std::sqrt(par.found));
           }
         }
+       lowpass_dir->cd();
+       lowpass_graph.Write();
       }
-     bidim_dir->cd();
-     bidim_graph.Write();
+    }
+    else {
+      if (lowpass>=0) {
+        TDirectory* cfd_dir = ch_dir->mkdir("cfd_scan");
+        TGraphErrors cfd_graph;
+        cfd_graph.SetName("cfd_scan");
+        int cfd_counter=0;
+        for (float cfd_th=std::abs(cfd_threshold); cfd_th<1; cfd_th+=std::abs(cfd_threshold)) {
+          std::cout<< "############ SCAN: CFD fraction " << cfd_th << " ############" <<std::endl;
+          TString cfd_tmpdir_name("cfd_");
+          cfd_tmpdir_name += (int) (100*cfd_th);
+          cfd_tmpdir_name += "_percent";
+          TDirectory* cfd_tmpdir = ch_dir->mkdir(cfd_tmpdir_name);
+          cfd_tmpdir->cd();
+          AlgorithmParameters par( 0.5, cfd_th, threshold_MCP,threshold,lowpass,hysteresis,min_amplitude_MCP, max_amplitude_MCP, min_amplitude_ch2, max_amplitude_ch2,baseline_p);  //Fixed cfd_threshold for ch0
+          double timeres_ps = example_analyzeData.executeTimeDifferenceWithMCP<AlgorithmParameters>(f_root, ComputeExactTimeCFD, par, firstchannel, secondchannel_local)*1e12;
+          std::cout << "############ SCAN: Time difference " << timeres_ps << " +- " << par.errorOnSigma << " ps, using " << par.found << " coincidences ############" << std::endl;
+          cfd_graph.SetPoint(cfd_counter, cfd_th, timeres_ps);
+          cfd_graph.SetPointError(cfd_counter++, 0, timeres_ps/std::sqrt(par.found));
+        }
+        cfd_dir->cd();
+        cfd_graph.Write();
+      }
+      else {
+        TDirectory* bidim_dir = ch_dir->mkdir("2d_scan");
+        TGraph2DErrors bidim_graph;
+        bidim_graph.SetName("bidim_scan");
+        int bidim_counter=0;
+        for (float lowpass_tmp=std::abs(lowpass); lowpass_tmp<1.0e9; lowpass_tmp+=std::abs(lowpass)) {
+          for (float cfd_th=std::abs(cfd_threshold); cfd_th<1; cfd_th+=std::abs(cfd_threshold)) {
+            std::cout<< "############ SCAN: Lowpass Frequency set to " << lowpass_tmp << " Hz, CFD " << (int) (100*cfd_th) << " % ############" <<std::endl;
+            TString bidim_tmpdir_name("bidim_");
+            bidim_tmpdir_name += (int) (1e-6*lowpass_tmp);
+            bidim_tmpdir_name += "_MHz_";
+            bidim_tmpdir_name += (int) (100*cfd_th);
+            bidim_tmpdir_name += "_percent";
+            TDirectory* cfd_tmpdir = ch_dir->mkdir(bidim_tmpdir_name);
+            cfd_tmpdir->cd();
+            AlgorithmParameters par( 0.5, cfd_th, threshold_MCP,threshold,lowpass_tmp,hysteresis,min_amplitude_MCP, max_amplitude_MCP, min_amplitude_ch2, max_amplitude_ch2,baseline_p);  //Fixed cfd_threshold for ch0
+            double timeres_ps = example_analyzeData.executeTimeDifferenceWithMCP<AlgorithmParameters>(f_root, ComputeExactTimeCFD, par, firstchannel, secondchannel_local)*1e12;
+            std::cout << "############ SCAN: Time difference " << timeres_ps << " +- " << par.errorOnSigma << " ps, using " << par.found << " coincidences" << std::endl;
+            if (timeres_ps<100) {
+              bidim_graph.SetPoint(bidim_counter, lowpass_tmp, cfd_th, timeres_ps);
+              bidim_graph.SetPointError(bidim_counter++, 0, 0, 1./std::sqrt(par.found));
+            }
+          }
+        }
+       bidim_dir->cd();
+       bidim_graph.Write();
+      }
     }
   }
 
