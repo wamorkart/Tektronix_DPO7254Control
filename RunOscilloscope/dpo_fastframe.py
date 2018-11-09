@@ -10,6 +10,7 @@ import sys
 import optparse
 import argparse
 import signal
+import os
 import shutil
 from shutil import copy
 
