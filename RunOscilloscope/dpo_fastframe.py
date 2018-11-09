@@ -10,6 +10,9 @@ import sys
 import optparse
 import argparse
 import signal
+import shutil
+from shutil import copy
+
 stop_asap = False
 
 def signal_handler(sig,frame):
