@@ -172,7 +172,7 @@ while (i*numFrames<totalNumber) and stop_asap==False:
                                               
 path_ftbf = "/Tektronix/test_run{}".format(runNumber)
 path_lxplus = "/lxplus/Scope_standalone/RAW/test_run{}".format(runNumber)
-shutil.copytree(path_ftbf,path_lxplus)  
+copytree(path_ftbf,path_lxplus)  
      
 print('Waveform saved.\n')
 
