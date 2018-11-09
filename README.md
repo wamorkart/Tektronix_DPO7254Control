@@ -37,7 +37,7 @@ Tektronix DPO7254 Oscilloscope stand-alone and DAQ-integrated control implemente
   - python dpo_fastframe.py --totalNumber= <int>  --numFrames='int' 
  
  Remember: 
- *Triggers number =  # of data / # of sample
+ *File Number =  # of triggers(totalNumber) / # of trigger for each file(numFrames)
  * numFrames is not striclty required, set to 500 by default
  
  
@@ -50,9 +50,12 @@ Tektronix DPO7254 Oscilloscope stand-alone and DAQ-integrated control implemente
  
 
 ### .root files reconstruction
+To reconstruct root files from the RAW wfm
+- cd /home/otsdaq/NetScope_standalone/Tektronix_DPO7254Control/Reconstruction/
+- source /home/otsdaq/CMSTimingSetup.sh 
+- converison.py InputDir RECO/OutputFile
 
-
- 
+ REMEMBER
  
  
  
