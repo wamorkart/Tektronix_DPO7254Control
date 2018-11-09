@@ -18,7 +18,7 @@ Tektronix DPO7254 Oscilloscope stand-alone and DAQ-integrated control implemente
  
  - ssh otsdaq@ftbf-daq-08.FNAL.GOV   (you need to be included in the users list)
  - cd /home/otsdaq/NetScope_standalone/Tektronix_DPO7254Control/RunOscilloscope
- - source /home/otsdaq/CMSTimingSetup.sh 
+ - source /includes/CMSTimingSetup.sh 
   
   ### Installation
   no need to install a new python version. 
@@ -34,7 +34,7 @@ Tektronix DPO7254 Oscilloscope stand-alone and DAQ-integrated control implemente
  ## Standalone configuration
  The oscilloscope can run completely independent from the Otsdaq. The number of triggers to acquire is set as script options.
  
-  - python dpo_fastframe.py --totalNumber= <int>  --numFrames='int' 
+  - python dpo_fastframe.py --totalNumber= 'int'  --numFrames='int' 
  
  Remember: 
  *File Number =  # of triggers(totalNumber) / # of trigger for each file(numFrames)
@@ -49,10 +49,10 @@ Tektronix DPO7254 Oscilloscope stand-alone and DAQ-integrated control implemente
 [otsdaq@ftbf-daq-08 Tektronix]
  
 
-### .root files reconstruction
+### files reconstruction
 To reconstruct root files from the RAW wfm
 - cd /home/otsdaq/NetScope_standalone/Tektronix_DPO7254Control/Reconstruction/
-- source /home/otsdaq/CMSTimingSetup.sh 
+- source /includes/CMSTimingSetup.sh 
 - converison.py InputDir RECO/OutputFile
 
  REMEMBER:
