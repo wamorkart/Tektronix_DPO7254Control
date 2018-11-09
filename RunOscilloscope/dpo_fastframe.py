@@ -77,7 +77,7 @@ def copynew(source,destination):
 # establish communication with dpo
 rm = visa.ResourceManager()
 dpo = rm.open_resource('TCPIP::192.168.133.160::INSTR')
-dpo.timeout = 60000
+dpo.timeout = 300000
 dpo.encoding = 'latin_1'
 print(dpo.query('*idn?'))
 # dpo.write('*rst')
