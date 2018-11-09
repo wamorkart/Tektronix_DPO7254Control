@@ -122,7 +122,7 @@ dpo.write('acquire:state off')
 dpo.write('horizontal:mode:scale {}'.format(hScale))
 dpo.write('horizontal:fastframe:state on')
 dpo.write('horizontal:fastframe:count {}'.format(numFrames))
-print('Horizontal scale set to {}'.format(hScale))
+print('Horizontal scale set to {} for division'.format(hScale))
 
 """#################SCOPE VERTICAL SETUP#################"""
 #vScale expressed in Volts
@@ -135,10 +135,10 @@ dpo.write('ch1:position {}'.format(vPos))
 dpo.write('ch2:position {}'.format(vPos))
 dpo.write('ch3:position {}'.format(vPos))
 dpo.write('ch4:position {}'.format(vPos))
-print('Verical scale set to {}'.format(vScale))
+print('Verical scale set to {} for division'.format(vScale))
 
 """#################TRIGGER SETUP#################"""
-dpo.write('TRIGGER:A:TYPE EDGE;:TRIGGER:A:LEVEL {};:TRIGGER:A:EDGE:SOURCE CH2'.format(trigLevel))
+# dpo.write('TRIGGER:A:TYPE EDGE;:TRIGGER:A:LEVEL {};:TRIGGER:A:EDGE:SOURCE CH2'.format(trigLevel))
 # dpo.write('TRIGGER:A:EDGE:SLOPE:CH1 FALL;:TRIGGER:A:MODE NORMAL')
 # print('Trigger scale on CH%d set to %f'%(trigCh,trigLevel))
 
