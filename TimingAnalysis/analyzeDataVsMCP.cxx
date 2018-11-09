@@ -104,8 +104,8 @@ int main (int argc, char** argv)
   std::cout<<"Filling "<<filename<<" with "<<filename<<std::endl;
 
   bool channelScan=true;
-  int secondchannel_local = -1;
-  while (channelScan and secondchannel_local<4) {
+  int secondchannel_local = 0;
+  while (channelScan && secondchannel_local<3) {
     if (secondchannel>=0) {
       channelScan=false;
       secondchannel_local = secondchannel;
@@ -116,6 +116,8 @@ int main (int argc, char** argv)
     TString ch_dir_name("channel_");
     ch_dir_name += secondchannel_local;
     TDirectory* ch_dir = f_root->mkdir(ch_dir_name);
+    std::cout<<"############ analyzing Ch " << secondchannel_local << std::endl;
+    ch_dir->cd();
 
     if (cfd_threshold > 0) {
       if (lowpass>=0) {

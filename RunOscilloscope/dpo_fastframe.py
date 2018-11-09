@@ -10,6 +10,10 @@ import sys
 import optparse
 import argparse
 import signal
+import os
+import shutil
+from shutil import copy
+
 stop_asap = False
 
 def signal_handler(sig,frame):
@@ -60,14 +64,20 @@ def get_waveform_info():
         raise visa.InvalidBinaryFormat
     return dType, bigEndian
 
-
-
+def copytree(src, dst, symlinks=False, ignore=None):
+    for item in os.listdir(src):
+        s = os.path.join(src, item)
+        d = os.path.join(dst, item)
+        shutil.copytree(item, d, symlinks, ignore)
+def copynew(source,destination):
+    for files in source:
+        shutil.copy(files,destination)
 
 """#################SEARCH/CONNECT#################"""
 # establish communication with dpo
 rm = visa.ResourceManager()
 dpo = rm.open_resource('TCPIP::192.168.133.160::INSTR')
-dpo.timeout = 60000
+dpo.timeout = 300000
 dpo.encoding = 'latin_1'
 print(dpo.query('*idn?'))
 # dpo.write('*rst')
@@ -159,8 +169,20 @@ while (i*numFrames<totalNumber) and stop_asap==False:
     dpo.write('save:waveform ch2, "%s_%d_CH2.wfm"'%(filename,i))
     dpo.write('save:waveform ch3, "%s_%d_CH3.wfm"'%(filename,i))
     dpo.write('save:waveform ch4, "%s_%d_CH4.wfm"'%(filename,i))
+                                              
+        
+import time              
+    
+    
+path_ftbf = "/Tektronix/test_run{}".format(runNumber)
+path_lxplus = ("/lxplus/Scope_standalone/RAW/test_run%d"%(runNumber))
 
-    print('Waveform saved.\n')
+while len(os.listdir(path_ftbf)) < 4*i: 
+    time.sleep(1)
+    
+shutil.copytree(path_ftbf,path_lxplus)  
+     
+print('Waveform saved.\n')
 
 
 
