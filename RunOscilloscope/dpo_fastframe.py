@@ -171,12 +171,15 @@ while (i*numFrames<totalNumber) and stop_asap==False:
     dpo.write('save:waveform ch4, "%s_%d_CH4.wfm"'%(filename,i))
                                               
         
-import time       
-time.sleep(10)
-        
+import time              
+    
+    
 path_ftbf = "/Tektronix/test_run{}".format(runNumber)
 path_lxplus = ("/lxplus/Scope_standalone/RAW/test_run%d"%(runNumber))
-print(path_lxplus)
+
+while len(os.ls(path_ftbf)) < 4*i: 
+    time.sleep(1)
+    
 shutil.copytree(path_ftbf,path_lxplus)  
      
 print('Waveform saved.\n')
