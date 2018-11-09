@@ -163,8 +163,7 @@ while (i*numFrames<totalNumber) and stop_asap==False:
    
 copy(path,"/Tektronix/")   
      
-
-    print('Waveform saved.\n')
+print('Waveform saved.\n')
 
 
 
