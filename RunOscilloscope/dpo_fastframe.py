@@ -69,7 +69,7 @@ def copytree(src, dst, symlinks=False, ignore=None):
         s = os.path.join(src, item)
         d = os.path.join(dst, item)
         shutil.copytree(item, d, symlinks, ignore)
-def copynew
+def copynew(source,destination):
     for files in source:
         shutil.copy(files,destination)
 
