@@ -63,7 +63,14 @@ def get_waveform_info():
         raise visa.InvalidBinaryFormat
     return dType, bigEndian
 
-
+def copytree(src, dst, symlinks=False, ignore=None):
+    for item in os.listdir(src):
+        s = os.path.join(src, item)
+        d = os.path.join(dst, item)
+        if os.path.isdir(s):
+            shutil.copytree(s, d, symlinks, ignore)
+        else:
+            shutil.copy2(s, d)
 
 
 """#################SEARCH/CONNECT#################"""
@@ -164,7 +171,7 @@ while (i*numFrames<totalNumber) and stop_asap==False:
     dpo.write('save:waveform ch4, "%s_%d_CH4.wfm"'%(filename,i))
                                               
 path_ftbf = "/Tektronix/test_run{}".format(runNumber)
-copy(path_ftbf,"/lxplus/Scope_standalone/RAW/")  
+shutil.copytree(path_ftbf,"/lxplus/Scope_standalone/RAW/")  
      
 print('Waveform saved.\n')
 
