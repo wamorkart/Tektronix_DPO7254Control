@@ -177,7 +177,7 @@ import time
 path_ftbf = "/Tektronix/test_run{}".format(runNumber)
 path_lxplus = ("/lxplus/Scope_standalone/RAW/test_run%d"%(runNumber))
 
-while len(os.ls(path_ftbf)) < 4*i: 
+while len(os.listdir(path_ftbf)) < 4*i: 
     time.sleep(1)
     
 shutil.copytree(path_ftbf,path_lxplus)  
