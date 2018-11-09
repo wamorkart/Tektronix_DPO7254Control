@@ -67,6 +67,7 @@ def openfiles(path):
     dirs = os.listdir(path)
     ch_set = set()
     run_set = set()
+    prerun_name = ""
     for file in dirs:
         file_split = file.split('_')
         print file_split
@@ -126,5 +127,3 @@ for fnum in range(1,numbFiles+1):
 
 f.Write()
 f.Close()
-
-    
