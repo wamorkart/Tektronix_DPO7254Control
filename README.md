@@ -6,7 +6,7 @@ Tektronix DPO7254 Oscilloscope stand-alone and DAQ-integrated control implemente
   * [Required directories](#required-directories)
 - [Standalone-configuration](#standalone-configuration)
   * [Output files](#output_files) 
-  * [.root files reconstruction](#.root-files-reconstruction) 
+  * [Files reconstruction](#.root-files-reconstruction) 
 
   
   
@@ -16,6 +16,7 @@ Tektronix DPO7254 Oscilloscope stand-alone and DAQ-integrated control implemente
   ## Quick start
  The Phyton script to run the acquisition can be found in the machine otsdaq@ftbf-daq-08. You'll need to create the python environment 
  
+ - kinit 'username.FNAL.GOV'
  - ssh otsdaq@ftbf-daq-08.FNAL.GOV   (you need to be included in the users list)
  - cd /home/otsdaq/NetScope_standalone/Tektronix_DPO7254Control/RunOscilloscope
  - source /includes/CMSTimingSetup.sh 
@@ -36,8 +37,8 @@ Tektronix DPO7254 Oscilloscope stand-alone and DAQ-integrated control implemente
  
   - python dpo_fastframe.py --totalNumber= 'int'  --numFrames='int' 
  
- Remember: 
- *File Number =  # of triggers(totalNumber) / # of trigger for each file(numFrames)
+ REMEMBER: 
+ * File Number =  # of triggers(totalNumber) / # of trigger for each file(numFrames)
  * numFrames is not striclty required, set to 500 by default
  
  
@@ -46,14 +47,17 @@ Tektronix DPO7254 Oscilloscope stand-alone and DAQ-integrated control implemente
  The files are saved locally in a shared directory connected to the ftbf-daq-08: 
  /Tektronix
  
+ 
+ IMPORTANT: every time the Oscilloscope is switched off the shared disk need to be mounted (ask Lorenzo)
+ 
 [otsdaq@ftbf-daq-08 Tektronix]
  
 
-### files reconstruction
+### Files reconstruction
 To reconstruct root files from the RAW wfm
 - cd /home/otsdaq/NetScope_standalone/Tektronix_DPO7254Control/Reconstruction/
 - source /includes/CMSTimingSetup.sh 
-- converison.py InputDir RECO/OutputFile
+- conversion.py InputDir RECO/OutputFile
 
  REMEMBER:
  
