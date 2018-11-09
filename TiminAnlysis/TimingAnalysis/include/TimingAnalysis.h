@@ -255,7 +255,7 @@ class TimingAnalysis : public pulse
       	if (LoadTree(jentry) < 0) break;
       	fChain->GetEntry(jentry++);
 
-      	eventCounter=event;
+      	eventCounter=i_evt;
       	if (eventCounter%1000==0  && eventCounter>0) {
       	  TF1 gausDt_tmp("gausDt_tmp","gaus",h_deltat_Smart.GetMean() - 2*h_deltat_Smart.GetRMS(),h_deltat_Smart.GetMean() + 2*h_deltat_Smart.GetRMS());
       	  h_deltat_Smart.Fit(&gausDt_tmp,"RFQ");
@@ -288,11 +288,11 @@ class TimingAnalysis : public pulse
               std::vector<double> TimeSamplesB;
       	std::vector<double> DataSamplesA;
       	std::vector<double> DataSamplesB;
-      	for (int i=30; i< 1000; ++i) {
-          TimeSamplesA.push_back( 1e-9 * (double) (time[0][i]-time[0][0]));
-          TimeSamplesB.push_back( 1e-9 * (double) (time[0][i]-time[0][0]));
-      	  DataSamplesA.push_back( 1e-3 * (double) channel[ChannelMeasureA][i] );
-      	  DataSamplesB.push_back( 1e-3 * (double) channel[ChannelMeasureB][i] );
+      	for (int i=0; i< 1000; ++i) {
+          TimeSamplesA.push_back( (double) (time[0][i]-time[0][0]));
+          TimeSamplesB.push_back( (double) (time[0][i]-time[0][0]));
+      	  DataSamplesA.push_back( (double) channel[ChannelMeasureA][i] );
+      	  DataSamplesB.push_back( (double) channel[ChannelMeasureB][i] );
       	}
 
 
@@ -325,7 +325,7 @@ class TimingAnalysis : public pulse
       	    ++coincidences;
             if (plotted<10) {
               std::string namegr("ev");
-              namegr+=std::to_string(event);
+              namegr+=std::to_string(i_evt);
               interp_th->SetName(namegr.c_str());
               for (int shift=0; shift<TimeSamplesA.size(); ++shift) {
                   interp_th->SetPoint(point_gr++,1e9*(TimeSamplesA.at(shift)-TimeSamplesA.at(0)),DataSamplesA.at(shift));
