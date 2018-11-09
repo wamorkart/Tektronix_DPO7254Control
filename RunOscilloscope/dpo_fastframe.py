@@ -159,6 +159,10 @@ while (i*numFrames<totalNumber) and stop_asap==False:
     dpo.write('save:waveform ch2, "%s_%d_CH2.wfm"'%(filename,i))
     dpo.write('save:waveform ch3, "%s_%d_CH3.wfm"'%(filename,i))
     dpo.write('save:waveform ch4, "%s_%d_CH4.wfm"'%(filename,i))
+                                              
+   
+copy(path,"/Tektronix/")   
+     
 
     print('Waveform saved.\n')
 
