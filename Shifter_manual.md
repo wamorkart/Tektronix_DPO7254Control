@@ -55,7 +55,7 @@ A quick guide to acuire data with the DPO7254 Tektronix oscilloscope, convert th
   - The files are automatically copied to a direcotry on lxplus mounted on the otsdaq@ftbf-daq-08: **'/lxplus/Scope_standalone/RAW/'**
   
   
-  ### Raw data - to root tree conversion <br />
+  ### Raw-data 2 root-tree conversion <br />
   
   
    
