@@ -86,7 +86,7 @@ print(dpo.query('*idn?'))
 parser = argparse.ArgumentParser(description='Run info.')
 
 parser.add_argument('--totalNumber', metavar='tot', type=int,help='totalNumber of data point',required=True)
-parser.add_argument('--numFrames',metavar='Frames', type=str,default = 500, help='numFrames (default 500)',required=False)
+parser.add_argument('--numFrames',metavar='Frames', type=str,default = 20000, help='numFrames (default 20000)',required=False)
 
 args = parser.parse_args()
 
@@ -98,7 +98,7 @@ numFrames = int(args.numFrames)
 totalNumber = int(args.totalNumber)
 vScale = 0.01 # in Volts
 vPos = 4  # in Divisions
-trigLevel = 0.03
+trigLevel =  - 0.074
 
 
 
@@ -145,11 +145,11 @@ dpo.write('ch4:position {}'.format(vPos))
 print('Verical scale set to {} for division'.format(vScale))
 
 """#################TRIGGER SETUP#################"""
-dpo.write('TRIGGER:A:TYPE EDGE;:TRIGGER:A:LEVEL {};:TRIGGER:A:EDGE:SOURCE CH1'.format(trigLevel)) 
-dpo.write('TRIGGER:A:EDGE:SLOPE:CH1 FALL;:TRIGGER:A:MODE NORMAL')
-print('Trigger scale set to %f'%(trigLevel))
+dpo.write('TRIGGER:A:TYPE EDGE;:TRIGGER:A:LEVEL {};:TRIGGER:A:EDGE:SOURCE CH2'.format(trigLevel)) 
+dpo.write('TRIGGER:A:EDGE:SLOPE:CH2 FALL;:TRIGGER:A:MODE NORMAL')
+print('Trigger scale on CH%d set to %f'%(trigCh,trigLevel))
 
-# dpo.write(':TRIGGER:A:EDGE:SOURCE LINE') #TO trigger on the line (60Hz)
+# dpo.write(':TRIGGER:A:EDGE:SOURCE LINE') #TO trigger on the line (50Hz)
 
 """#################TERMINATIONS SETUP#################"""
 dpo.write(':CH1:TER 1;:CH2:TER 50;:CH3:TER 50;:CH4:TER 50');
