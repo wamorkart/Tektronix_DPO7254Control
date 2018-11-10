@@ -8,14 +8,18 @@ import ctypes
 from ROOT import TFile, TTree
 from array import array
 
-#fname = "fastframe"
+if len(sys.argv)==3:
+    path = sys.argv[1]
+    outputfile = sys.argv[2]
 
-if len(sys.argv)!=3:
-    raise Exception("Usage: python converter.py inputDir outputFile")
-#flist = [1]
+if len(sys.argv)==2:
+    path = sys.argv[1]
+    runName = path.split('/')[-2].strip('/')
+    outputfile = path + '/../../ROOT/{}.root'.format(runName)
+    print("Using default output: {}".format(outputfile))
 
-path = sys.argv[1]
-outputfile = sys.argv[2]
+if len(sys.argv)<2 or len(sys.argv)>3:
+    raise Exception("Usage: python converter.py inputDir [outputFile]")
 
 f = TFile( outputfile, 'recreate' )
 t = TTree( 'pulse', 'Test beam samples' )
@@ -70,7 +74,7 @@ def openfiles(path):
     prerun_name = ""
     for file in dirs:
         file_split = file.split('_')
-        print file_split
+        # print file_split
         run_num_str = file_split[len(file_split)-2]
         run_num = int(file_split[len(file_split)-2])
         if run_num < 0:
@@ -92,7 +96,7 @@ if numbChannels != 4:
 
 for fnum in range(1,numbFiles+1):
 
-    print("I'm reading: %s%i_CH1.wfm"%(fname,fnum))
+    print("I'm reading: %s%i_CH*.wfm"%(fname,fnum))
 
     volts_ch1, tstart_ch1, tscale_ch1, tfrac_ch1, tdatefrac_ch1, tdate_ch1 = tekwfm.read_wfm("%s%i_CH1.wfm"%(fname,fnum))
     volts_ch2, tstart_ch2, tscale_ch2, tfrac_ch2, tdatefrac_ch2, tdate_ch2 = tekwfm.read_wfm("%s%i_CH2.wfm"%(fname,fnum))

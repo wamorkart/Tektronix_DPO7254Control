@@ -59,7 +59,6 @@ To reconstruct root files from the RAW wfm
 - source /includes/CMSTimingSetup.sh 
 - conversion.py InputDir RECO/OutputFile
 
- REMEMBER:
  
  
  
