@@ -3,11 +3,11 @@ A quick guide to acuire data with the DPO7254 Tektronix oscilloscope, convert th
 
 ### TO RUN THE ACQUISITION
 
-  1. `<kinit username.FNAL.GOV>`
-  2. `<ssh otsdaq@ftbf-daq-08.FNAL.GOV>`  *### you need to be included in the users list*
-  3. `<cd /home/otsdaq/NetScope_standalone/Tektronix_DPO7254Control/RunOscilloscope>` 
-  4. `<source /includes/CMSTimingSetup.sh>`  *#### Create the right environment for the oscilloscope control and analysis*
-  5. `<dpo_fastframe.py --totalNumber= 'int' --numFrames='int'>` &nbsp; *### Lunch the oscilloscope acquisition* 
+  1. `kinit username.FNAL.GOV`
+  2. `ssh otsdaq@ftbf-daq-08.FNAL.GOV`  *### you need to be included in the users list*
+  3. `cd /home/otsdaq/NetScope_standalone/Tektronix_DPO7254Control/RunOscilloscope` 
+  4. `source /includes/CMSTimingSetup.sh`  *#### Create the right environment for the oscilloscope control and analysis*
+  5. `dpo_fastframe.py --totalNumber=<int> --numFrames=<int>` &nbsp; *### Lunch the oscilloscope acquisition* 
       
       **Remember:** <br />
       * Number of files generated = # of triggers(totalNumber) / # of trigger for each file(numFrames)<br />
