@@ -38,6 +38,5 @@ h_SNR_DetN: SNR computed event by event
 
 
 NOTE: Root required, on lxplus:
-$> . /afs/cern.ch/sw/lcg/app/releases/ROOT/6.00.02/x86_64-slc6-gcc48-opt/root/bin/thisroot.sh
-$> . /afs/cern.ch/sw/lcg/external/gcc/4.9.3o3/x86_64-slc6-gcc49-opt/setup.sh
+$> . /cvmfs/sft.cern.ch/lcg/releases/LCG_88/ROOT/6.08.06/x86_64-slc6-gcc62-opt/ROOT-env.sh
 $> make

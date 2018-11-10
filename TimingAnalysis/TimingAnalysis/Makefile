@@ -1,7 +1,7 @@
 INS=-Iinclude
 
 CC=g++
-CFLAGS=-g -std=gnu++0x -Wall -DNUM_DOUBLE
+CFLAGS=-g -Wall -DNUM_DOUBLE -std=c++1y
 SOFLAGS=-fPIC
 
 ROOT=`root-config --cflags --libs`

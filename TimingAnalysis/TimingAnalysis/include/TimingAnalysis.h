@@ -544,7 +544,8 @@ class TimingAnalysis : public pulse
             if (Channel==0)
           	  parameters.detectorNumber=0;
             else
-          	  parameters.detectorNumber=1;
+              parameters.detectorNumber=1;
+              
         	  computeExactTime(TimeSamples, DataSamples, parameters);
         	  histograms[Channel].h_max->Fill(parameters.maximum);
         	  ch1_maximum = parameters.maximum;
