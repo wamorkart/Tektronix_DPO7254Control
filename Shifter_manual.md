@@ -8,7 +8,9 @@ A quick guide to acuire data with the DPO7254 Tektronix oscilloscope, convert th
   3. `cd /home/otsdaq/NetScope_standalone/Tektronix_DPO7254Control/RunOscilloscope` 
   4. `source /includes/CMSTimingSetup.sh`  *#### Create the right environment for the oscilloscope control and analysis*
   5. `dpo_fastframe.py --totalNumber=<int> --numFrames=<int>` &nbsp; *### Lunch the oscilloscope acquisition* <br />
-  
+  6. **REMEMBER TO ADD THE INFO TO THE LOG BOOK AND SPREADSHEET IF YOU CHANGE SENSORS OR SCOPE CONFIG!!!!!**
+     * spreadhseet: https://docs.google.com/spreadsheets/d/1w8Xzyr6kfaaHiJRtUg55FBBeXtrGfKv6OfC9XdTYLko/edit?ts=5be4d629#gid=0
+     * LogBook: https://docs.google.com/document/d/1PVd6DxdxLFYFbk_dmaxY3c2C5qMCfLAmNJD_r8xbN_4/edit#
       
       **Remember:** <br />
       * Number of files generated = # of triggers(totalNumber) / # of trigger for each file(numFrames)<br />
