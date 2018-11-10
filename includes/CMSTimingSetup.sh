@@ -8,12 +8,16 @@ export USER_DATA=/data-08/TestBeam/Users/cmstiming/2018_11_November_CMSTiming_us
 export ARTDAQ_DATABASE_URI=filesystemdb:///data-08/TestBeam/Users/cmstiming/2018_11_November_CMSTiming_database
 export OTSDAQ_DATA=/data/TestBeam/2018_11_November_CMSTiming
 
+## for analyzer
+export FNAL_SCOPE_DIR=/eos/cms/store/group/phys_susy/razor/FNAL_TB_1811/Scope_standalone/
+. /cvmfs/sft.cern.ch/lcg/releases/LCG_88/ROOT/6.08.06/x86_64-slc6-gcc62-opt/ROOT-env.sh
+
 
 echo "ARTDAQ_DATABASE_URI=$ARTDAQ_DATABASE_URI"
 echo "USER_DATA=$USER_DATA"
 
 IS_INTERACTIVE=0
-case $- in *i*)  
+case $- in *i*)
 	IS_INTERACTIVE=1
 esac
 

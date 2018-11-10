@@ -14,9 +14,12 @@ if len(sys.argv)==3:
 
 if len(sys.argv)==2:
     path = sys.argv[1]
-    runName = path.split('/')[-2].strip('/')
-    outputfile = path + '/../../ROOT/{}.root'.format(runName)
-    print("Using default output: {}".format(outputfile))
+    runName = path.split('/')[-1].strip('/')
+    if runName=='':
+        runName = path.split('/')[-2].strip('/')
+    # print(runName)
+    outputfile = path + '/../../ROOT/%s.root'%(runName)
+    print("Using default output: %s"%(outputfile))
 
 if len(sys.argv)<2 or len(sys.argv)>3:
     raise Exception("Usage: python converter.py inputDir [outputFile]")
