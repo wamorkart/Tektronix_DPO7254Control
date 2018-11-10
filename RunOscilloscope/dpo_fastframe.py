@@ -105,7 +105,7 @@ vPos_ch1 = 4  # in Divisions
 vPos_ch2 = 4  # in Divisions
 vPos_ch3 = 4  # in Divisions
 vPos_ch4 = 4  # in Divisions
-
+trigCh = 'CH1' # string with trigger channel number [CH1..CH4]
 trigLevel =   - 0.03
 
 
@@ -114,7 +114,9 @@ trigLevel =   - 0.03
 # increment the last runNumber by 1
 with open('runNumber.txt') as file:
     runNumber = int(file.read())
-print('######## Starting RUN {} ########'.format(runNumber))
+print('######## Starting RUN {} ########\n'.format(runNumber))
+print('---------------------\n')
+
 with open('runNumber.txt','w') as file:
     file.write(str(runNumber+1))
 
@@ -163,6 +165,11 @@ print('CH4: verical scale set to {} for division'.format(vScale_ch4))
 """#################TRIGGER SETUP#################"""
 dpo.write('TRIGGER:A:TYPE EDGE;:TRIGGER:A:LEVEL {};:TRIGGER:A:EDGE:SOURCE CH2'.format(trigLevel)) 
 dpo.write('TRIGGER:A:EDGE:SLOPE:CH2 FALL;:TRIGGER:A:MODE NORMAL')
+
+#dpo.write('TRIGGER:A:TYPE EDGE;:TRIGGER:A:LEVEL %d;:TRIGGER:A:EDGE:SOURCE %s'%(trigLevel,trigCh))
+#dpo.write('TRIGGER:A:EDGE:SLOPE:%s FALL;:TRIGGER:A:MODE NORMAL'%(trigCh))
+
+
 # dpo.write(':TRIGGER:A:EDGE:SOURCE LINE') #TO trigger on the line (60Hz)
 
 
