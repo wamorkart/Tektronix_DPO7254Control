@@ -169,11 +169,8 @@ print('CH4: verical scale set to {} for division'.format(vScale_ch4))
 
 
 """#################TRIGGER SETUP#################"""
-dpo.write('TRIGGER:A:TYPE EDGE;:TRIGGER:A:LEVEL {};:TRIGGER:A:EDGE:SOURCE CH2'.format(trigLevel)) 
-dpo.write('TRIGGER:A:EDGE:SLOPE:CH2 FALL;:TRIGGER:A:MODE NORMAL')
-
-#dpo.write('TRIGGER:A:TYPE EDGE;:TRIGGER:A:LEVEL %d;:TRIGGER:A:EDGE:SOURCE %s'%(trigLevel,trigCh))
-#dpo.write('TRIGGER:A:EDGE:SLOPE:%s FALL;:TRIGGER:A:MODE NORMAL'%(trigCh))
+dpo.write('TRIGGER:A:TYPE EDGE;:TRIGGER:A:LEVEL %d;:TRIGGER:A:EDGE:SOURCE %s'%(trigLevel,trigCh))
+dpo.write('TRIGGER:A:EDGE:SLOPE:%s FALL;:TRIGGER:A:MODE NORMAL'%(trigCh))
 # dpo.write(':TRIGGER:A:EDGE:SOURCE LINE') #TO trigger on the line (60Hz)
 
 
