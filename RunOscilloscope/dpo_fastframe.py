@@ -106,7 +106,7 @@ vPos_ch2 = 4  # in Divisions
 vPos_ch3 = 4  # in Divisions
 vPos_ch4 = 4  # in Divisions
 
-trigLevel =   0.03
+trigLevel =   - 0.03
 
 
 
@@ -131,7 +131,7 @@ dpo.write('horizontal:mode:scale {}'.format(hScale))
 dpo.write('horizontal:fastframe:state on')
 dpo.write('horizontal:fastframe:count {}'.format(numFrames))
 
-print("##### SCOPE HORIZONTAL SETUP #####")
+print("# SCOPE HORIZONTAL SETUP #")
 print('\nHorizontal scale set to {} for division\n'.format(hScale))
 
 """#################SCOPE CHANNELS BANDWIDTH#################"""
@@ -153,26 +153,27 @@ dpo.write('ch2:position {}'.format(vPos_ch2))
 dpo.write('ch3:position {}'.format(vPos_ch3))
 dpo.write('ch4:position {}'.format(vPos_ch4))
 
-print("##### SCOPE VERTICAL SETUP #####")
-print('Verical scale set to {} for division\n'.format(vScale_ch1))
-print('Verical scale set to {} for division\n'.format(vScale_ch2))
-print('Verical scale set to {} for division\n'.format(vScale_ch3))
-print('Verical scale set to {} for division\n'.format(vScale_ch4))
+print("# SCOPE VERTICAL SETUP #")
+print('CH1: verical scale set to {} for division'.format(vScale_ch1))
+print('CH2: verical scale set to {} for division'.format(vScale_ch2))
+print('CH3: verical scale set to {} for division'.format(vScale_ch3))
+print('CH4: verical scale set to {} for division'.format(vScale_ch4))
 
 
 """#################TRIGGER SETUP#################"""
-dpo.write('TRIGGER:A:TYPE EDGE;:TRIGGER:A:LEVEL {};:TRIGGER:A:EDGE:SOURCE CH1'.format(trigLevel)) 
-dpo.write('TRIGGER:A:EDGE:SLOPE:CH1 FALL;:TRIGGER:A:MODE NORMAL')
+dpo.write('TRIGGER:A:TYPE EDGE;:TRIGGER:A:LEVEL {};:TRIGGER:A:EDGE:SOURCE CH2'.format(trigLevel)) 
+dpo.write('TRIGGER:A:EDGE:SLOPE:CH2 FALL;:TRIGGER:A:MODE NORMAL')
+# dpo.write(':TRIGGER:A:EDGE:SOURCE LINE') #TO trigger on the line (60Hz)
 
-print("##### TRIGGER SETUP #####")
+
+print("# TRIGGER SETUP #")
 print('Trigger scale set to %f\n'%(trigLevel))
 
-# dpo.write(':TRIGGER:A:EDGE:SOURCE LINE') #TO trigger on the line (50Hz)
 
 """#################TERMINATIONS SETUP#################"""
 dpo.write(':CH1:TER 1;:CH2:TER 50;:CH3:TER 50;:CH4:TER 50');
 
-print("##### TERMINATIONS SETUP #####")
+print("# TERMINATIONS SETUP #")
 print('All The Terminations set to 50 ohm.\n')
 
 print('Horizontal, vertical, and trigger settings configured.\n')
