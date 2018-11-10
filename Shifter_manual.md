@@ -1,0 +1,51 @@
+# Shifter quick Manual
+A quick guide to acuire data with the DPO7254 Tektronix oscilloscope, convert them to .root and run the analysis.
+
+### TO RUN THE ACQUISITION
+
+  1. kinit 'username.FNAL.GOV'   
+  2. ssh otsdaq@ftbf-daq-08.FNAL.GOV  *### you need to be included in the users list*
+  3. /home/otsdaq/NetScope_standalone/Tektronix_DPO7254Control/RunOscilloscope 
+  4. source /includes/CMSTimingSetup.sh  *#### Create the right environment for the oscilloscope control and analysis*
+  5. dpo_fastframe.py --totalNumber= 'int' --numFrames='int' &nbsp; *### Lunch the oscilloscope acquisition*
+      
+      **Remember:** <br />
+      File Number = # of triggers(totalNumber) / # of trigger for each file(numFrames)<br />
+      numFrames is not striclty required, set to 500 by default
+      
+      
+      
+      **To change the scope's configuration:** 
+        ```python
+        variables for individual settings 
+        hScale = 10e-9                      # horizontal scale [s]
+        numFrames = int(args.totalNumber)
+        totalNumber = int(args.numFrames)
+        vScale = 0.05                       # vertical scale [Volts]
+        vPos = -2.5                         # vertical position [Divisions]
+        trigLevel = 0.15                    # trigger level [Volts]
+        trigCh = 2                          # trigger channel number
+        ```
+        
+        
+        NOTE:<br />
+        manual changeid appliedto the scope config will be overwitten by the script config -> If you wanna
+        manually adjust the scope paprameter remmeber to comment the set up lines. <br />
+        Example  
+        ```python
+          """#################TRIGGER SETUP#################"""
+          dpo.write('TRIGGER:A:TYPE EDGE;:TRIGGER:A:LEVEL {};:TRIGGER:A:EDGE:SOURCE CH2'.format(trigLevel)) 
+        ```
+        **IMPORTANT:**<br />
+        The bandwidth is automatically set to be the maximum available for each channel (2.5GHz). This option 
+        is available only if the vertical scale is set to be greater or equal to 10mV/div!!! <br />
+       
+        
+  ### Data location and reconstruction<br />
+  The data are stored locally on the directory  **'C:\ETL_Nov2018'**<br />
+  This directory is shared to a folder in the otsdaq@ftbf-daq-08   **'/Tektronix/'<br />**
+  
+  
+  
+  
+
