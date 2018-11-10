@@ -98,7 +98,7 @@ numFrames = int(args.numFrames)
 totalNumber = int(args.totalNumber)
 vScale = 0.01 # in Volts
 vPos = 4  # in Divisions
-trigLevel =  - 0.074
+trigLevel =  - 0.0074
 
 
 
