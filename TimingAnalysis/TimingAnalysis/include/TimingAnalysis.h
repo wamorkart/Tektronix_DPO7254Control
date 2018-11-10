@@ -163,8 +163,8 @@ class TimingAnalysis : public pulse
       double ch2_baselineRms = .0;
 
       // Histo declaration, create new for a new file
-      TH1D h_deltat_SimpleThreshold("h_deltat_SimpleThreshold","Time Difference wrt MCP using simple threshold; t(s)",2000,-10e-9,10e-9);
-      TH1D h_deltat_Smart("h_deltat_Smart","Time Difference wrt MCP; t(s)",2000,-10e-9,10e-9);
+      TH1D h_deltat_SimpleThreshold("h_deltat_SimpleThreshold","Time Difference wrt MCP using simple threshold; t(s)",2000,-30e-9,-10e-9);
+      TH1D h_deltat_Smart("h_deltat_Smart","Time Difference wrt MCP; t(s)",2000,-30e-9,-10e-9);
       TH1D h_TimeFromTrigger_Det0("h_TimeFromTrigger_Det0","Time Difference bw MCP and trigger; t(s)",1000,-10e-9,50e-9);
       TH1D h_TimeFromTrigger_Det1("h_TimeFromTrigger_Det1","Time Difference bw DUT and trigger; t(s)",1000,-10e-9,50e-9);
 
@@ -179,8 +179,8 @@ class TimingAnalysis : public pulse
       TH1D h_SNR_Det0("h_SNR_Det0","SNR of MCP; SNR",150,0,150);
       TH1D h_SNR_Det1("h_SNR_Det1","SNR of DUT; SNR",150,0,150);
 
-      TH1D h_risetime_Det0("h_risetime_Det0","Risetime of MCP; rt (s)",300,-0,3e-9);
-      TH1D h_risetime_Det1("h_risetime_Det1","Risetime of DUT; rt (s)",300,0,3e-9);
+      TH1D h_risetime_Det0("h_risetime_Det0","Risetime of MCP; rt (s)",200,0,4e-9);
+      TH1D h_risetime_Det1("h_risetime_Det1","Risetime of DUT; rt (s)",200,0,4e-9);
 
       TH1D h_nOfPeaks_Det0("h_nOfPeaks_Det0","Number of peaks found per trigger (MCP); number of peaks",10,0,10);
       TH1D h_nOfPeaks_Det1("h_nOfPeaks_Det1","Number of peaks found per trigger (DUT); number of peaks",10,0,10);
@@ -545,7 +545,7 @@ class TimingAnalysis : public pulse
           	  parameters.detectorNumber=0;
             else
               parameters.detectorNumber=1;
-              
+
         	  computeExactTime(TimeSamples, DataSamples, parameters);
         	  histograms[Channel].h_max->Fill(parameters.maximum);
         	  ch1_maximum = parameters.maximum;

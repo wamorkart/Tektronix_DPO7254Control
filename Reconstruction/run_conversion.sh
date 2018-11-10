@@ -9,7 +9,8 @@ do
   echo ${done_runs[$run_i]}
 done
 echo Selected:
-new_runs=($(ls -dt ${FNAL_SCOPE_DIR}/RAW/* | head -${#done_runs[@]}))
+new_runs=($(ls -dt ${FNAL_SCOPE_DIR}/RAW/* | head -${#done_runs[@] +1}))
+# new_runs=($(ls -dt ${FNAL_SCOPE_DIR}/RAW/* ))
 tLen=${#new_runs[@]}
 echo $tLen
 

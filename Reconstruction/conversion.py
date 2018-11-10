@@ -99,11 +99,13 @@ if numbChannels != 4:
 
 for fnum in range(1,numbFiles+1):
 
-    print("I'm reading: %s%i_CH*.wfm"%(fname,fnum))
-
+    print("I'm reading: %s%i_CH1.wfm"%(fname,fnum))
     volts_ch1, tstart_ch1, tscale_ch1, tfrac_ch1, tdatefrac_ch1, tdate_ch1 = tekwfm.read_wfm("%s%i_CH1.wfm"%(fname,fnum))
+    print("I'm reading: %s%i_CH2.wfm"%(fname,fnum))
     volts_ch2, tstart_ch2, tscale_ch2, tfrac_ch2, tdatefrac_ch2, tdate_ch2 = tekwfm.read_wfm("%s%i_CH2.wfm"%(fname,fnum))
+    print("I'm reading: %s%i_CH3.wfm"%(fname,fnum))
     volts_ch3, tstart_ch3, tscale_ch3, tfrac_ch3, tdatefrac_ch3, tdate_ch3 = tekwfm.read_wfm("%s%i_CH3.wfm"%(fname,fnum))
+    print("I'm reading: %s%i_CH4.wfm"%(fname,fnum))
     volts_ch4, tstart_ch4, tscale_ch4, tfrac_ch4, tdatefrac_ch4, tdate_ch4 = tekwfm.read_wfm("%s%i_CH4.wfm"%(fname,fnum))
 
     if tfrac_ch1.all() != tfrac_ch2.all() and tfrac_ch1.all() != tfrac_ch3.all() and tfrac_ch1.all() != tfrac_ch4.all():
@@ -111,24 +113,26 @@ for fnum in range(1,numbFiles+1):
     if tscale_ch1 != tscale_ch2 and tscale_ch1 != tscale_ch3 and tscale_ch1 != tscale_ch4:
         raise Exception("time scales don't match between channels!")
 
+    print("I'm filling the tree: %s"%(outputfile))
+    samples = 1000
+    tstop_ch1 = samples * tscale_ch1 + tstart_ch1
+    t0 = np.linspace(tstart_ch1, tstop_ch1, num=samples, endpoint=False)
+
+    evt_offset = len(tfrac_ch1)*(fnum-1)
+    time_temp = np.zeros(volts_ch1.shape)
+    for frame, subsample in enumerate(tfrac_ch1):
+        toff = subsample * tscale_ch1
+        time_temp[:samples,frame] = t0 + toff
+
     for evt_local in range(len(tfrac_ch1)):
-        i_evt[0] = evt_local + len(tfrac_ch1)*(fnum-1)
+        i_evt[0] = evt_local + evt_offset
+        # print(i_evt[0])
 
-        channel[0] = volts_ch1[:,evt_local]
-        channel[1] = volts_ch2[:,evt_local]
-        channel[2] = volts_ch3[:,evt_local]
-        channel[3] = volts_ch4[:,evt_local]
-
-        samples_ch1, frames = volts_ch1.shape
-        tstop_ch1 = samples_ch1 * tscale_ch1 + tstart_ch1
-        t0 = np.linspace(tstart_ch1, tstop_ch1, num=samples_ch1, endpoint=False)
-
-        time_temp = np.zeros(volts_ch1.shape)
-        for frame, subsample in enumerate(tfrac_ch1):
-            toff = subsample * tscale_ch1
-            time_temp[:,frame] = t0 + toff
-
-        time[0] = time_temp[:1000,evt_local]
+        channel[0] = volts_ch1[:samples,evt_local]
+        channel[1] = volts_ch2[:samples,evt_local]
+        channel[2] = volts_ch3[:samples,evt_local]
+        channel[3] = volts_ch4[:samples,evt_local]
+        time[0] = time_temp[:samples,evt_local]
 
         t.Fill()
 

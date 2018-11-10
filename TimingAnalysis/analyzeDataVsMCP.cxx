@@ -13,7 +13,7 @@ int main (int argc, char** argv)
   int firstchannel=0;
   int secondchannel=1;
   float cfd_threshold=0.4;
-  float threshold_MCP=-0.1;
+  float threshold_MCP=-0.01;
   float threshold=-0.01;
   float lowpass=0;
 
