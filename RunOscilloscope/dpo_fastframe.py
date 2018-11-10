@@ -93,11 +93,11 @@ args = parser.parse_args()
 
 """#################CONFIGURE INSTRUMENT#################"""
 # variables for individual settings
-hScale = 10e-9
+hScale = 10e-9  #seconds, DO NOT CHANGE 
 numFrames = int(args.numFrames)
 totalNumber = int(args.totalNumber)
-vScale = 0.5
-vPos = -2.5
+vScale = 0.01 # in Volts
+vPos = 4  # in Divisions
 trigLevel = - 0.03
 
 
@@ -145,9 +145,9 @@ dpo.write('ch4:position {}'.format(vPos))
 print('Verical scale set to {} for division'.format(vScale))
 
 """#################TRIGGER SETUP#################"""
-# dpo.write('TRIGGER:A:TYPE EDGE;:TRIGGER:A:LEVEL {};:TRIGGER:A:EDGE:SOURCE CH2'.format(trigLevel))
-# dpo.write('TRIGGER:A:EDGE:SLOPE:CH1 FALL;:TRIGGER:A:MODE NORMAL')
-# print('Trigger scale on CH%d set to %f'%(trigCh,trigLevel))
+dpo.write('TRIGGER:A:TYPE EDGE;:TRIGGER:A:LEVEL {};:TRIGGER:A:EDGE:SOURCE CH1'.format(trigLevel)) 
+dpo.write('TRIGGER:A:EDGE:SLOPE:CH1 FALL;:TRIGGER:A:MODE NORMAL')
+print('Trigger scale on CH%d set to %f'%(trigCh,trigLevel))
 
 # dpo.write(':TRIGGER:A:EDGE:SOURCE LINE') #TO trigger on the line (50Hz)
 
