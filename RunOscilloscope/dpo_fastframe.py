@@ -241,11 +241,11 @@ shutil.copytree(path_ftbf,path_lxplus)
 print('Waveform copied.\n')
 
 
-print("\n\n\n ********  DID YOU UPDATE THE LOGBOOK AND SPREADSHEET?? \n\n")
+print("\n\n\n ********  DID YOU UPDATE THE LOGBOOK AND SPREADSHEET?? ******** \n\n")
 print("LogBook: https://docs.google.com/document/d/1PVd6DxdxLFYFbk_dmaxY3c2C5qMCfLAmNJD_r8xbN_4/edit#")
+print('\n')
 print("\nSpreadsheet: https://docs.google.com/spreadsheets/d/1w8Xzyr6kfaaHiJRtUg55FBBeXtrGfKv6OfC9XdTYLko/edit?ts=5be4d629#gid=0")
-
-
+print('\n')
 
 # Retrieve vertical and horizontal scaling information
 # yOffset = float(dpo.query('wfmoutpre:yoff?'))
