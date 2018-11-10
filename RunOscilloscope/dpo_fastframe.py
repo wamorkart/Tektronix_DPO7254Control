@@ -140,7 +140,7 @@ dpo.write('horizontal:fastframe:state on')
 dpo.write('horizontal:fastframe:count {}'.format(numFrames))
 
 print("# SCOPE HORIZONTAL SETUP #")
-print('\nHorizontal scale set to {} for division\n'.format(hScale))
+print('Horizontal scale set to {} for division\n'.format(hScale))
 
 """#################SCOPE CHANNELS BANDWIDTH#################"""
 #'full' set the bandwidth to 2.5GHz(HW) IMPORTANT: the vertical scale has to be at least 10mV/division to use this feature!
@@ -169,7 +169,7 @@ print('CH4: verical scale set to {} for division'.format(vScale_ch4))
 
 
 """#################TRIGGER SETUP#################"""
-dpo.write('TRIGGER:A:TYPE EDGE;:TRIGGER:A:LEVEL %d;:TRIGGER:A:EDGE:SOURCE %s'%(trigLevel,trigCh))
+dpo.write('TRIGGER:A:TYPE EDGE;:TRIGGER:A:LEVEL %f;:TRIGGER:A:EDGE:SOURCE %s'%(trigLevel,trigCh))
 dpo.write('TRIGGER:A:EDGE:SLOPE:%s FALL;:TRIGGER:A:MODE NORMAL'%(trigCh))
 # dpo.write(':TRIGGER:A:EDGE:SOURCE LINE') #TO trigger on the line (60Hz)
 
