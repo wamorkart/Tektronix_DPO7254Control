@@ -124,6 +124,13 @@ dpo.write('horizontal:fastframe:state on')
 dpo.write('horizontal:fastframe:count {}'.format(numFrames))
 print('Horizontal scale set to {} for division'.format(hScale))
 
+"""#################SCOPE CHANNELS BANDWIDTH#################"""
+#'full' set the bandwidth to 2.5GHz(HW) IMPORTANT: the vertical scale has to be at least 10mV/division to use this feature!
+dpo.write('ch1:bandwidth full')
+dpo.write('ch2:bandwidth full')
+dpo.write('ch3:bandwidth full')
+dpo.write('ch4:bandwidth full')
+
 """#################SCOPE VERTICAL SETUP#################"""
 #vScale expressed in Volts
 dpo.write('ch1:scale {}'.format(vScale))
