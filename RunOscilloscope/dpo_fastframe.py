@@ -94,17 +94,23 @@ args = parser.parse_args()
 
 """#################CONFIGURE INSTRUMENT#################"""
 # variables for individual settings
-hScale = 10e-9  #seconds, DO NOT CHANGE 
-numFrames = int(args.numFrames)
-totalNumber = int(args.totalNumber)
+hScale = 10e-9  # horizontal scale in seconds, !!!!DO NOT CHANGE!!!! 
+numFrames = int(args.numFrames) # number of frames for each file
+totalNumber = int(args.totalNumber) # total number of frames
+
+#vertical scale
 vScale_ch1 = 0.05 # in Volts
 vScale_ch2 = 0.1 # in Volts
 vScale_ch3 = 0.01 # in Volts
 vScale_ch4 = 0.01 # in Volts
+
+#vertical position
 vPos_ch1 = 4  # in Divisions
 vPos_ch2 = 4  # in Divisions
 vPos_ch3 = 4  # in Divisions
 vPos_ch4 = 4  # in Divisions
+
+#trigger
 trigCh = 'CH1' # string with trigger channel number [CH1..CH4]
 trigLevel =   - 0.03
 
@@ -168,8 +174,6 @@ dpo.write('TRIGGER:A:EDGE:SLOPE:CH2 FALL;:TRIGGER:A:MODE NORMAL')
 
 #dpo.write('TRIGGER:A:TYPE EDGE;:TRIGGER:A:LEVEL %d;:TRIGGER:A:EDGE:SOURCE %s'%(trigLevel,trigCh))
 #dpo.write('TRIGGER:A:EDGE:SLOPE:%s FALL;:TRIGGER:A:MODE NORMAL'%(trigCh))
-
-
 # dpo.write(':TRIGGER:A:EDGE:SOURCE LINE') #TO trigger on the line (60Hz)
 
 
