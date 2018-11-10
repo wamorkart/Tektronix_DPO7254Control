@@ -1,5 +1,6 @@
 """
 VISA Control: FastFrame Acquisition
+Tektronix DPO7254 Control
 FNAL November 2018
 CMS MTD ETL Test beam
 """
