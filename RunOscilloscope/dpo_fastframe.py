@@ -149,7 +149,7 @@ dpo.write('ch1:position {}'.format(vPos_ch1))
 dpo.write('ch2:position {}'.format(vPos_ch2))
 dpo.write('ch3:position {}'.format(vPos_ch3))
 dpo.write('ch4:position {}'.format(vPos_ch4))
-print('Verical scale set to {} for division\n'.format(vScale))
+#print('Verical scale set to {} for division\n'.format(vScale_ch1))
 
 """#################TRIGGER SETUP#################"""
 dpo.write('TRIGGER:A:TYPE EDGE;:TRIGGER:A:LEVEL {};:TRIGGER:A:EDGE:SOURCE CH2'.format(trigLevel)) 
