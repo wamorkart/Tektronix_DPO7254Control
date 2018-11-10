@@ -99,8 +99,12 @@ totalNumber = int(args.totalNumber)
 vScale_ch1 = 0.05 # in Volts
 vScale_ch2 = 0.1 # in Volts
 vScale_ch3 = 0.01 # in Volts
-vScale_ch3 = 0.01 # in Volts
-vPos = 4  # in Divisions
+vScale_ch4 = 0.01 # in Volts
+vPos_ch1 = 4  # in Divisions
+vPos_ch2 = 4  # in Divisions
+vPos_ch3 = 4  # in Divisions
+vPos_ch4 = 4  # in Divisions
+
 trigLevel =  - 0.0074
 
 
@@ -141,10 +145,10 @@ dpo.write('ch2:scale {}'.format(vScale_ch2))
 dpo.write('ch3:scale {}'.format(vScale_ch3))
 dpo.write('ch3:scale {}'.format(vScale_ch4))
 
-dpo.write('ch1:position {}'.format(vPos))
-dpo.write('ch2:position {}'.format(vPos))
-dpo.write('ch3:position {}'.format(vPos))
-dpo.write('ch4:position {}'.format(vPos))
+dpo.write('ch1:position {}'.format(vPos_ch1))
+dpo.write('ch2:position {}'.format(vPos_ch2))
+dpo.write('ch3:position {}'.format(vPos_ch3))
+dpo.write('ch4:position {}'.format(vPos_ch4))
 print('Verical scale set to {} for division\n'.format(vScale))
 
 """#################TRIGGER SETUP#################"""
