@@ -105,7 +105,7 @@ vPos_ch2 = 4  # in Divisions
 vPos_ch3 = 4  # in Divisions
 vPos_ch4 = 4  # in Divisions
 
-trigLevel =  - 0.0074
+trigLevel =   0.03
 
 
 
@@ -149,11 +149,17 @@ dpo.write('ch1:position {}'.format(vPos_ch1))
 dpo.write('ch2:position {}'.format(vPos_ch2))
 dpo.write('ch3:position {}'.format(vPos_ch3))
 dpo.write('ch4:position {}'.format(vPos_ch4))
-#print('Verical scale set to {} for division\n'.format(vScale_ch1))
+
+print("################# SCOPE VERTICAL SETUP #################")
+print('Verical scale set to {} for division\n'.format(vScale_ch1))
+print('Verical scale set to {} for division\n'.format(vScale_ch2))
+print('Verical scale set to {} for division\n'.format(vScale_ch3))
+print('Verical scale set to {} for division\n'.format(vScale_ch4))
+
 
 """#################TRIGGER SETUP#################"""
-dpo.write('TRIGGER:A:TYPE EDGE;:TRIGGER:A:LEVEL {};:TRIGGER:A:EDGE:SOURCE CH2'.format(trigLevel)) 
-dpo.write('TRIGGER:A:EDGE:SLOPE:CH2 FALL;:TRIGGER:A:MODE NORMAL')
+dpo.write('TRIGGER:A:TYPE EDGE;:TRIGGER:A:LEVEL {};:TRIGGER:A:EDGE:SOURCE CH1'.format(trigLevel)) 
+dpo.write('TRIGGER:A:EDGE:SLOPE:CH1 FALL;:TRIGGER:A:MODE NORMAL')
 print('Trigger scale set to %f\n'%(trigLevel))
 
 # dpo.write(':TRIGGER:A:EDGE:SOURCE LINE') #TO trigger on the line (50Hz)
