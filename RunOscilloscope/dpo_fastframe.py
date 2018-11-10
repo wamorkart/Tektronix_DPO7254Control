@@ -232,6 +232,8 @@ path_lxplus = ("/lxplus/Scope_standalone/RAW/run_scope%d"%(runNumber))
 
 while len(os.listdir(path_ftbf)) < 4*i: 
     time.sleep(1)
+
+print('Start copying the file on lxplus....')
     
 shutil.copytree(path_ftbf,path_lxplus)  
      
