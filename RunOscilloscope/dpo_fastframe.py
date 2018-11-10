@@ -113,7 +113,7 @@ with open('runNumber.txt','w') as file:
 
 """#################SET THE OUTPUT FOLDER#################"""
 # The scope save runs localy on a shared folder with
-path = "c:/ETL_Nov2018/test_run{}".format(runNumber)
+path = "c:/ETL_Nov2018/run_scope{}".format(runNumber)
 dpo.write('filesystem:mkdir "{}"'.format(path))
 
 """#################SCOPE HORIZONTAL SETUP#################"""
@@ -196,8 +196,8 @@ while (i*numFrames<totalNumber) and stop_asap==False:
 import time              
     
     
-path_ftbf = "/Tektronix/test_run{}".format(runNumber)
-path_lxplus = ("/lxplus/Scope_standalone/RAW/test_run%d"%(runNumber))
+path_ftbf = "/Tektronix/run_scope{}".format(runNumber)
+path_lxplus = ("/lxplus/Scope_standalone/RAW/run_scope%d"%(runNumber))
 
 while len(os.listdir(path_ftbf)) < 4*i: 
     time.sleep(1)
