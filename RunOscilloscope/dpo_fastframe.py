@@ -210,18 +210,18 @@ i = 0
 filename='{}/fastframe'.format(path)
 while (i*numFrames<totalNumber) and stop_asap==False:
     i+=1
-    print('Acquiring waveform.\n')
+    print('Acquiring waveform_{}'.format(i))
     dpo.write('acquire:stopafter sequence')
     dpo.write('acquire:state on')
     dpo.query('*opc?')
-    print('Waveform acquired.\n')
+    print('Waveform_{} acquired'.format(i))
     dpo.write('save:waveform:fileformat INTERNAL')
     dpo.write('save:waveform ch1, "%s_%d_CH1.wfm"'%(filename,i))
     dpo.write('save:waveform ch2, "%s_%d_CH2.wfm"'%(filename,i))
     dpo.write('save:waveform ch3, "%s_%d_CH3.wfm"'%(filename,i))
     dpo.write('save:waveform ch4, "%s_%d_CH4.wfm"'%(filename,i))
     
-    print('Waveform acquired.\n')
+    print('Waveform_{} saved.\n')
 
         
 import time              
