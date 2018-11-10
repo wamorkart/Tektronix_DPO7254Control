@@ -116,6 +116,9 @@ trigLevel =   - 0.025
 
 
 
+#if totalNumber > numFrames
+
+
 """#################CONFIGURE RUN NUMBER#################"""
 # increment the last runNumber by 1
 with open('runNumber.txt') as file:
