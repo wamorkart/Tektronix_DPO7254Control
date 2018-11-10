@@ -98,7 +98,7 @@ numFrames = int(args.numFrames)
 totalNumber = int(args.totalNumber)
 vScale = 0.01 # in Volts
 vPos = 4  # in Divisions
-trigLevel = - 0.03
+trigLevel = 0.03
 
 
 
@@ -147,9 +147,9 @@ print('Verical scale set to {} for division'.format(vScale))
 """#################TRIGGER SETUP#################"""
 dpo.write('TRIGGER:A:TYPE EDGE;:TRIGGER:A:LEVEL {};:TRIGGER:A:EDGE:SOURCE CH1'.format(trigLevel)) 
 dpo.write('TRIGGER:A:EDGE:SLOPE:CH1 FALL;:TRIGGER:A:MODE NORMAL')
-print('Trigger scale on CH%d set to %f'%(trigCh,trigLevel))
+print('Trigger scale set to %f'%(trigLevel))
 
-# dpo.write(':TRIGGER:A:EDGE:SOURCE LINE') #TO trigger on the line (50Hz)
+# dpo.write(':TRIGGER:A:EDGE:SOURCE LINE') #TO trigger on the line (60Hz)
 
 """#################TERMINATIONS SETUP#################"""
 dpo.write(':CH1:TER 1;:CH2:TER 50;:CH3:TER 50;:CH4:TER 50');
