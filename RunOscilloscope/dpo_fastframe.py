@@ -77,7 +77,7 @@ def copynew(source,destination):
 # establish communication with dpo
 rm = visa.ResourceManager()
 dpo = rm.open_resource('TCPIP::192.168.133.160::INSTR')
-dpo.timeout = 300000
+dpo.timeout = 3000000
 dpo.encoding = 'latin_1'
 print(dpo.query('*idn?'))
 # dpo.write('*rst')
@@ -96,7 +96,10 @@ args = parser.parse_args()
 hScale = 10e-9  #seconds, DO NOT CHANGE 
 numFrames = int(args.numFrames)
 totalNumber = int(args.totalNumber)
-vScale = 0.01 # in Volts
+vScale_ch1 = 0.05 # in Volts
+vScale_ch2 = 0.1 # in Volts
+vScale_ch3 = 0.01 # in Volts
+vScale_ch3 = 0.01 # in Volts
 vPos = 4  # in Divisions
 trigLevel =  - 0.0074
 
@@ -122,7 +125,7 @@ dpo.write('acquire:state off')
 dpo.write('horizontal:mode:scale {}'.format(hScale))
 dpo.write('horizontal:fastframe:state on')
 dpo.write('horizontal:fastframe:count {}'.format(numFrames))
-print('Horizontal scale set to {} for division'.format(hScale))
+print('\nHorizontal scale set to {} for division\n'.format(hScale))
 
 """#################SCOPE CHANNELS BANDWIDTH#################"""
 #'full' set the bandwidth to 2.5GHz(HW) IMPORTANT: the vertical scale has to be at least 10mV/division to use this feature!
@@ -133,21 +136,21 @@ dpo.write('ch4:bandwidth full')
 
 """#################SCOPE VERTICAL SETUP#################"""
 #vScale expressed in Volts
-dpo.write('ch1:scale {}'.format(vScale))
-dpo.write('ch2:scale {}'.format(vScale))
-dpo.write('ch3:scale {}'.format(vScale))
-dpo.write('ch3:scale {}'.format(vScale))
+dpo.write('ch1:scale {}'.format(vScale_ch1))
+dpo.write('ch2:scale {}'.format(vScale_ch2))
+dpo.write('ch3:scale {}'.format(vScale_ch3))
+dpo.write('ch3:scale {}'.format(vScale_ch4))
 
 dpo.write('ch1:position {}'.format(vPos))
 dpo.write('ch2:position {}'.format(vPos))
 dpo.write('ch3:position {}'.format(vPos))
 dpo.write('ch4:position {}'.format(vPos))
-print('Verical scale set to {} for division'.format(vScale))
+print('Verical scale set to {} for division\n'.format(vScale))
 
 """#################TRIGGER SETUP#################"""
 dpo.write('TRIGGER:A:TYPE EDGE;:TRIGGER:A:LEVEL {};:TRIGGER:A:EDGE:SOURCE CH2'.format(trigLevel)) 
 dpo.write('TRIGGER:A:EDGE:SLOPE:CH2 FALL;:TRIGGER:A:MODE NORMAL')
-print('Trigger scale set to %f'%(trigLevel))
+print('Trigger scale set to %f\n'%(trigLevel))
 
 # dpo.write(':TRIGGER:A:EDGE:SOURCE LINE') #TO trigger on the line (50Hz)
 
@@ -169,7 +172,7 @@ dpo.write('data:stop {}'.format(recordLength))
 dpo.write('wfmoutpre:byt_n 1')
 dpo.write('data:framestart 1')
 dpo.write('data:framestop {}'.format(numFrames))
-print('Data transfer settings configured.')
+print('Data transfer settings configured.\n')
 
 dpo.read_termination = '\n'
 
@@ -181,7 +184,7 @@ i = 0
 filename='{}/fastframe'.format(path)
 while (i*numFrames<totalNumber) and stop_asap==False:
     i+=1
-    print('Acquiring waveform.')
+    print('Acquiring waveform.\n')
     dpo.write('acquire:stopafter sequence')
     dpo.write('acquire:state on')
     dpo.query('*opc?')
@@ -191,7 +194,9 @@ while (i*numFrames<totalNumber) and stop_asap==False:
     dpo.write('save:waveform ch2, "%s_%d_CH2.wfm"'%(filename,i))
     dpo.write('save:waveform ch3, "%s_%d_CH3.wfm"'%(filename,i))
     dpo.write('save:waveform ch4, "%s_%d_CH4.wfm"'%(filename,i))
-                                              
+    
+    print('Waveform acquired.\n')
+
         
 import time              
     
@@ -204,7 +209,12 @@ while len(os.listdir(path_ftbf)) < 4*i:
     
 shutil.copytree(path_ftbf,path_lxplus)  
      
-print('Waveform saved.\n')
+print('Waveform copied.\n')
+
+
+print("\n\n\n ********  DID YOU UPDATE THE LOGBOOK AND SPREADSHEET?? \n\n")
+print("LogBook: https://docs.google.com/document/d/1PVd6DxdxLFYFbk_dmaxY3c2C5qMCfLAmNJD_r8xbN_4/edit#")
+print("\nSpreadsheet: https://docs.google.com/spreadsheets/d/1w8Xzyr6kfaaHiJRtUg55FBBeXtrGfKv6OfC9XdTYLko/edit?ts=5be4d629#gid=0")
 
 
 
