@@ -283,7 +283,7 @@ double ComputeExactTimeCFD(std::vector<double>& time, std::vector<double>& data,
  double timeOverThreshold10, timeOverThreshold90;
  double time10 = comparator(time, smoothed_data_norm, 0.1, 0.001/param.scaleFactor, timeOverThreshold10, numberOfpeaks10, i_th_10);
  double time90 = comparator(time, smoothed_data_norm, 0.9, 0.001/param.scaleFactor, timeOverThreshold90, numberOfpeaks90, i_th_90);
- if (numberOfpeaks10>0 && numberOfpeaks90>0 && (timeOverThreshold10-timeOverThreshold90)>0 && (timeOverThreshold10-timeOverThreshold90)<20e-9) {
+ if (numberOfpeaks10==1 && numberOfpeaks90==1 && (timeOverThreshold10-timeOverThreshold90)>0 && (timeOverThreshold10-timeOverThreshold90)<20e-9) {
    param.risetime = time90 - time10;
  }
  else

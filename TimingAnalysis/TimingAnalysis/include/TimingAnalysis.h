@@ -307,7 +307,7 @@ class TimingAnalysis : public pulse
     	  T_threshold_A = parameters.thresholdTime;
 
     	  //Pedestal
-    	  if (parameters.numberOfpeaks>0) {
+    	  if (parameters.numberOfpeaks<=1) {
     	    for (int shift=1; shift<TimeSamplesA.size(); ++shift) {
     	      if (TimeSamplesA.at(shift)-TimeSamplesA.at(0) > (parameters.thresholdTime-TimeSamplesA.at(0))/3) break;
     	      h_pedestal_Det0.Fill(DataSamplesA.at(shift));

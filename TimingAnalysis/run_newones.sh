@@ -17,5 +17,7 @@ echo Processing $lenToDo new files
 
 for (( run_i=0; run_i<$lenToDo; run_i++ ));
 do
-  ./analyzeDataVsMCP -i ${new_runs[$run_i]} -f 1 -t -0.015 -c 0.5 --lowpass 00e6 --MCPsaturation 0.085 --MCPthreshold -0.02 -o /eos/cms/store/group/phys_susy/razor/FNAL_TB_1811/Scope_standalone/Analyzed/
+  ./analyzeDataVsMCP -i ${new_runs[$run_i]} -f -1 -t -0.015 -c 0.5 -s 0.085 --lowpass 00e6 --MCPsaturation 0.085 --MCPthreshold -0.02 -o /eos/cms/store/group/phys_susy/razor/FNAL_TB_1811/Scope_standalone/Analyzed/
+  # ./analyzeDataVsMCP -i ${new_runs[$run_i]} -f 2 -t -0.015 -c 0.5 -s 0.085 --lowpass 00e6 --MCPsaturation 0.085 --MCPthreshold -0.02 -o /eos/cms/store/group/phys_susy/razor/FNAL_TB_1811/Scope_standalone/Analyzed/
+  # ./analyzeDataVsMCP -i ${new_runs[$run_i]} -f 3 -t -0.015 -c 0.5 -s 0.085 --lowpass 00e6 --MCPsaturation 0.085 --MCPthreshold -0.02 -o /eos/cms/store/group/phys_susy/razor/FNAL_TB_1811/Scope_standalone/Analyzed/
 done
