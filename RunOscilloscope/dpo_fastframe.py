@@ -112,7 +112,7 @@ vPos_ch4 = 4  # in Divisions
 
 #trigger
 trigCh = 'CH2' # string with trigger channel number [CH1..CH4]
-trigLevel =   - 0.020
+trigLevel =   - 0.01
 
 
 
