@@ -22,14 +22,26 @@ A quick guide to acuire data with the DPO7254 Tektronix oscilloscope, convert th
       
       **To change the scope's configuration:** 
         ```python
-        variables for individual settings 
-        hScale = 10e-9                      # horizontal scale [s]
-        numFrames = int(args.totalNumber)
-        totalNumber = int(args.numFrames)
-        vScale = 0.05                       # vertical scale [Volts]
-        vPos = -2.5                         # vertical position [Divisions]
-        trigLevel = 0.15                    # trigger level [Volts]
-        trigCh = 2                          # trigger channel number
+      # variables for individual settings
+      hScale = 10e-9  # horizontal scale in seconds, !!!!DO NOT CHANGE!!!! 
+      numFrames = int(args.numFrames) # number of frames for each file
+      totalNumber = int(args.totalNumber) # total number of frames
+
+      #vertical scale
+      vScale_ch1 = 0.01 # in Volts
+      vScale_ch2 = 0.01 # in Volts
+      vScale_ch3 = 0.01 # in Volts
+      vScale_ch4 = 0.01 # in Volts
+
+      #vertical position
+      vPos_ch1 = 4  # in Divisions
+      vPos_ch2 = 4  # in Divisions
+      vPos_ch3 = 4  # in Divisions
+      vPos_ch4 = 4  # in Divisions
+
+      #trigger
+      trigCh = 'CH2' # string with trigger channel number [CH1..CH4]
+      trigLevel = - 0.025
         ```
         
         
