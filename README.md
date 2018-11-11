@@ -35,11 +35,12 @@ Tektronix DPO7254 Oscilloscope stand-alone and DAQ-integrated control implemente
  ## Standalone configuration
  The oscilloscope can run completely independent from the Otsdaq. The number of triggers to acquire is set as script options.
  
-  - python dpo_fastframe.py --totalNumber= 'int'  --numFrames='int' 
+  - python dpo_fastframe.py --totalNumber= 'int'  --numFrames='int' --trigCh = 'string' --trig = 'float'
  
  REMEMBER: 
  * File Number =  # of triggers(totalNumber) / # of trigger for each file(numFrames)&nbsp; 
  * numFrames is not striclty required, set to 20000 by default
+ * the possible option for trigCh are: CH1,CH2,CH3,CH4,AUX
  
  
  ### Output Raw files
