@@ -99,7 +99,7 @@ numFrames = int(args.numFrames) # number of frames for each file
 totalNumber = int(args.totalNumber) # total number of frames
 
 #vertical scale
-vScale_ch1 = 0.01 # in Volts
+vScale_ch1 = 0.05 # in Volts
 vScale_ch2 = 0.01 # in Volts
 vScale_ch3 = 0.01 # in Volts
 vScale_ch4 = 0.01 # in Volts
@@ -111,8 +111,8 @@ vPos_ch3 = 4  # in Divisions
 vPos_ch4 = 4  # in Divisions
 
 #trigger
-trigCh = 'Ch2' # string with trigger channel number [CH1..CH4]
-trigLevel =   - 0.02
+trigCh = 'AUX' # string with trigger channel number [CH1..CH4]
+trigLevel =   - 0.1
 
 
 
