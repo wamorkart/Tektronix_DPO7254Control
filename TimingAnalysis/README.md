@@ -1,8 +1,9 @@
 # TimingAnalysis
 
-Code for timing analysis. Author: Nicola Minafra
+Code for timing analysis. Author: **Nicola Minafra**
 
-Usage:
+* Usage:
+```
 $> make
 $> ./example_analyzeData --help
   Allowed options:
@@ -24,19 +25,25 @@ $> ./example_analyzeData --help
   -o [ --outputdir ] arg (=~/Work/public/Fermilab/Results)
                                         output directory
   -i [ --filename ] arg                 input file
-
+        
+```
 
 For Fermilab analysis:
+```
 $> ./example_analyzeData -i /afs/cern.ch/work/n/nminafra/public/Fermilab/ -t -0.1 -w -0.01 -f 0 -s 1 -c 0.5 --lowpass 700e6
+```
 
-The output root file is saved in Results/ with the same name of the input file, plus _result_ch0_ch1.root
+The output root file is saved in **Results/** with the same name of the input file, plus **_result_ch0_ch1.root**
 Important plots:
-evN: graph of waveforms
-h_deltat_Smart: time difference between the two channels with the method ComputeExactTimeCFD in /TimingAnalysis/include/timingAlgorithm.h
-h_max_selected_DetN: amplitude of only events selected for timing analysis
-h_SNR_DetN: SNR computed event by event
+- evN: graph of waveforms
+- h_deltat_Smart: time difference between the two channels with the method ComputeExactTimeCFD in  `/TimingAnalysis/include/timingAlgorithm.h`
+- h_max_selected_DetN: amplitude of only events selected for timing analysis
+- h_SNR_DetN: SNR computed event by event
 
 
-NOTE: Root required, on lxplus:
+NOTE: Root required, <br />
+on lxplus:
+```
 $> . /cvmfs/sft.cern.ch/lcg/releases/LCG_88/ROOT/6.08.06/x86_64-slc6-gcc62-opt/ROOT-env.sh
 $> make
+```
