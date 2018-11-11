@@ -80,6 +80,8 @@ parser = argparse.ArgumentParser(description='Run info.')
 
 parser.add_argument('--totalNumber', metavar='tot', type=int,help='totalNumber of data point',required=True)
 parser.add_argument('--numFrames',metavar='Frames', type=str,default = 500, help='numFrames (default 20000)',required=False)
+parser.add_argument('--trigCh',metavar='trigCh', type=str, default='AUX',help='trigger Channel (default Aux (-0.1V))',required=False)
+parser.add_argument('--trig',metavar='trig', type=float, default= -0.05, help='trigger value in V (default Aux (-0.05V))',required=False)
 
 args = parser.parse_args()
 
@@ -103,8 +105,8 @@ vPos_ch3 = 4  # in Divisions
 vPos_ch4 = 4  # in Divisions
 
 #trigger
-trigCh = 'AUX' # string with trigger channel number [CH1..CH4]
-trigLevel =   - 0.1
+trigCh = (args.trigCh) # string with trigger channel number [CH1..CH4]
+trigLevel = float(args.trig)
 
 
 
@@ -131,6 +133,17 @@ with open('runNumber.txt','w') as file:
 # The scope save runs localy on a shared folder with
 path = "c:/ETL_Nov2018/run_scope{}".format(runNumber)
 dpo.write('filesystem:mkdir "{}"'.format(path))
+log_path = "Logbook.txt"
+
+
+#Write in the log file
+logf = open(log_path,"a+")
+date = datetime.datetime.now()
+
+logf.write("\n\n#### SCOPE LOGBOOK -- RUN NUMBER {} ####\n\n".format(runNumber))
+logf.write("Date:\t{}\n".format(date))
+logf.write("---------------------------------------------------------\n\n")
+
 
 """#################SCOPE HORIZONTAL SETUP#################"""
 # dpo setup
@@ -141,6 +154,10 @@ dpo.write('horizontal:fastframe:count {}'.format(numFrames))
 
 print("# SCOPE HORIZONTAL SETUP #")
 print('Horizontal scale set to {} for division\n'.format(hScale))
+
+logf.write("HORIZONTAL SETUP\n")
+logf.write('- Horizontal scale set to {} s for division\n\n'.format(hScale))
+
 
 """#################SCOPE CHANNELS BANDWIDTH#################"""
 #'full' set the bandwidth to 2.5GHz(HW) IMPORTANT: the vertical scale has to be at least 10mV/division to use this feature!
@@ -162,10 +179,16 @@ dpo.write('ch3:position {}'.format(vPos_ch3))
 dpo.write('ch4:position {}'.format(vPos_ch4))
 
 print("# SCOPE VERTICAL SETUP #")
-print('CH1: verical scale set to {} for division'.format(vScale_ch1))
-print('CH2: verical scale set to {} for division'.format(vScale_ch2))
-print('CH3: verical scale set to {} for division'.format(vScale_ch3))
-print('CH4: verical scale set to {} for division'.format(vScale_ch4))
+print('CH1: verical scale set to {} V for division'.format(vScale_ch1))
+print('CH2: verical scale set to {} V for division'.format(vScale_ch2))
+print('CH3: verical scale set to {} V for division'.format(vScale_ch3))
+print('CH4: verical scale set to {} V for division'.format(vScale_ch4))
+
+logf.write("VERTICAL SETUP\n")
+logf.write('- CH1: verical scale set to {} V for division\n'.format(vScale_ch1))
+logf.write('- CH2: verical scale set to {} V for division\n'.format(vScale_ch2))
+logf.write('- CH3: verical scale set to {} V for division\n'.format(vScale_ch3))
+logf.write('- CH4: verical scale set to {} V for division\n\n'.format(vScale_ch4))
 
 
 """#################TRIGGER SETUP#################"""
@@ -173,9 +196,14 @@ dpo.write('TRIGGER:A:TYPE EDGE;:TRIGGER:A:LEVEL %f;:TRIGGER:A:EDGE:SOURCE %s'%(t
 dpo.write('TRIGGER:A:EDGE:SLOPE:%s FALL;:TRIGGER:A:MODE NORMAL'%(trigCh))
 # dpo.write(':TRIGGER:A:EDGE:SOURCE LINE') #TO trigger on the line (60Hz)
 
+trigprint='%.3f'%(trigLevel)
 
 print("# TRIGGER SETUP #")
-print('Trigger scale set to %f\n'%(trigLevel))
+print('Trigger scale set to %s V\n'%(trigprint))
+
+logf.write("TRIGGER SETUP\n")
+logf.write('- Trigger Channel set to %s\n'%(trigCh))
+logf.write('- Trigger scale set to %s V\n\n\n\n'%(trigprint))
 
 
 """#################TERMINATIONS SETUP#################"""
