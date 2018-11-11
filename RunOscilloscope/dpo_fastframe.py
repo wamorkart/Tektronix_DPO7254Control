@@ -87,7 +87,7 @@ print(dpo.query('*idn?'))
 parser = argparse.ArgumentParser(description='Run info.')
 
 parser.add_argument('--totalNumber', metavar='tot', type=int,help='totalNumber of data point',required=True)
-parser.add_argument('--numFrames',metavar='Frames', type=str,default = 20000, help='numFrames (default 20000)',required=False)
+parser.add_argument('--numFrames',metavar='Frames', type=str,default = 500, help='numFrames (default 20000)',required=False)
 
 args = parser.parse_args()
 
@@ -116,7 +116,12 @@ trigLevel =   - 0.025
 
 
 
-#if totalNumber > numFrames
+if totalNumber < numFrames:
+    raise Exception("total number of frames < number of frames for each file")    
+
+    
+if numFrames > 2000:
+    ("WARNING: numFrames > 2000 --> the DUT might need more than one spill to fill a waveform file.\n")    
 
 
 """#################CONFIGURE RUN NUMBER#################"""
@@ -213,18 +218,18 @@ i = 0
 filename='{}/fastframe'.format(path)
 while (i*numFrames<totalNumber) and stop_asap==False:
     i+=1
-    print('Acquiring waveform_{}'.format(i))
+    print('Acquiring waveform {}'.format(i))
     dpo.write('acquire:stopafter sequence')
     dpo.write('acquire:state on')
     dpo.query('*opc?')
-    print('Waveform_{} acquired'.format(i))
+    print('Waveform {} acquired'.format(i))
     dpo.write('save:waveform:fileformat INTERNAL')
     dpo.write('save:waveform ch1, "%s_%d_CH1.wfm"'%(filename,i))
     dpo.write('save:waveform ch2, "%s_%d_CH2.wfm"'%(filename,i))
     dpo.write('save:waveform ch3, "%s_%d_CH3.wfm"'%(filename,i))
     dpo.write('save:waveform ch4, "%s_%d_CH4.wfm"'%(filename,i))
     
-    print('Waveform_{} saved.\n')
+    print('Waveform {} saved.\n'.format(i))
 
         
 import time              
