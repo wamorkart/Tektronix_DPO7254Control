@@ -125,12 +125,14 @@ int main (int argc, char** argv)
         double timeres_ps = example_analyzeData.executeTimeDifferenceWithMCP<AlgorithmParameters>(f_root, ComputeExactTimeCFD, par, firstchannel, secondchannel_local)*1e12;
         // std::cout << "############ RESULTS: Time difference " << timeres_ps << " +- " << par.errorOnSigma << " ps, using " << par.found << " coincidences" << std::endl;
 
-        if (par.sigmaOfCh1Amplitude < 0.001)
-          empty=true;
-        if (par.found>300)
-          full=true;
-        else
-          low=true;
+        if (!full) {
+          if (par.sigmaOfCh1Amplitude < 0.001)
+            empty=true;
+          if (par.found>300)
+            full=true;
+          else
+            low=true;
+          }
       }
       else {
         TDirectory* lowpass_dir = ch_dir->mkdir("lowpass_scan");
