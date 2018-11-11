@@ -41,6 +41,7 @@ Tektronix DPO7254 Oscilloscope stand-alone and DAQ-integrated control implemente
  * File Number =  # of triggers(totalNumber) / # of trigger for each file(numFrames)&nbsp; 
  * numFrames is not striclty required, set to 20000 by default
  * the possible option for trigCh are: CH1,CH2,CH3,CH4,AUX
+ * If no arguments are given the script set the default trigger to -50 mv AUX (external trigger)
  
  
  ### Output Raw files
