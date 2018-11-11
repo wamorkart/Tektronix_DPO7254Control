@@ -68,5 +68,4 @@ To reconstruct root files from the RAW '.wfm' files:
 * The file are in the folder $FNAL_SCOPE_DIR 
 
   
-### Run the analysis
-- cd /Tektronix_DPO7254Control/Reconstruction
+
