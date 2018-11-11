@@ -17,14 +17,6 @@ from shutil import copy
 
 stop_asap = False
 
-def signal_handler(sig,frame):
-    global stop_asap
-    stop_asap = True
-    print("Emergency stop: Closing")
-signal.signal(signal.SIGINT,signal_handler)
-signal.signal(signal.SIGTERM,signal_handler)
-
-
 import visa
 
 
