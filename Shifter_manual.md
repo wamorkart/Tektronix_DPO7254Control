@@ -46,7 +46,7 @@ A quick guide to acuire data with the DPO7254 Tektronix oscilloscope, convert th
         
         
         NOTE:<br />
-        manual changeid appliedto the scope config will be overwitten by the script config -> If you wanna
+        manual changes applied to the scope config will be overwitten by the script config -> If you wanna
         manually adjust the scope paprameter remmeber to comment the set up lines. <br />
         
         * Example:  
