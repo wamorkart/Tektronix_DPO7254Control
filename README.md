@@ -16,10 +16,10 @@ Tektronix DPO7254 Oscilloscope stand-alone and DAQ-integrated control implemente
   ## Quick start
  The Phyton script to run the acquisition can be found in the machine otsdaq@ftbf-daq-08. You'll need to create the python environment 
  
- - kinit 'username.FNAL.GOV'
- - ssh otsdaq@ftbf-daq-08.FNAL.GOV   (you need to be included in the users list)
- - cd /home/otsdaq/NetScope_standalone/Tektronix_DPO7254Control/RunOscilloscope
- - source /includes/CMSTimingSetup.sh 
+ - `kinit username.FNAL.GOV`
+ - `ssh otsdaq@ftbf-daq-08.FNAL.GOV`   (you need to be included in the users list)
+ - `cd /home/otsdaq/NetScope_standalone/Tektronix_DPO7254Control/RunOscilloscope`
+ - `source /includes/CMSTimingSetup.sh` 
   
   ### Installation
   no need to install a new python version. 
@@ -35,7 +35,7 @@ Tektronix DPO7254 Oscilloscope stand-alone and DAQ-integrated control implemente
  ## Standalone configuration
  The oscilloscope can run completely independent from the Otsdaq. The number of triggers to acquire is set as script options.
  
-  - python dpo_fastframe.py --totalNumber= 'int'  --numFrames='int' --trigCh = 'string' --trig = 'float'
+  - `python dpo_fastframe.py --totalNumber= 'int'  --numFrames='int' --trigCh = 'string' --trig = 'float'`
  
  REMEMBER: 
  * File Number =  # of triggers(totalNumber) / # of trigger for each file(numFrames)&nbsp; 
@@ -52,18 +52,18 @@ Tektronix DPO7254 Oscilloscope stand-alone and DAQ-integrated control implemente
  
  IMPORTANT: every time the Oscilloscope is switched off the shared disk need to be mounted (ask Lorenzo)
  
-[otsdaq@ftbf-daq-08 Tektronix]
+`[otsdaq@ftbf-daq-08 Tektronix]`
  
 
 ### Files reconstruction
 To reconstruct root files from the RAW wfm
-- ssh username@lxplus.cern.ch
-- cd /YOURWORKINGAREA
-- git clone 
-- cd /Tektronix_DPO7254Control/Reconstruction
-- source ../includes/CMSTimingSetup.sh
-- source run_conversion.sh ## takes all the file not yet converted and convert them
-- cd $FNAL_SCOPE_DIR *### the output folder is ${FNAL_SCOPE_DIR}* 
+- `ssh username@lxplus.cern.ch`
+- `cd /YOURWORKINGAREA`
+- `git clone `
+- `cd /Tektronix_DPO7254Control/Reconstruction`
+- `source ../includes/CMSTimingSetup.sh`
+- `source run_conversion.sh` ## takes all the file not yet converted and convert them
+- `cd $FNAL_SCOPE_DIR` *### the output folder is ${FNAL_SCOPE_DIR}* 
 
 
 
