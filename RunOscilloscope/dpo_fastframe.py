@@ -111,8 +111,8 @@ vPos_ch3 = 4  # in Divisions
 vPos_ch4 = 4  # in Divisions
 
 #trigger
-trigCh = 'AUX' # string with trigger channel number [CH1..CH4]
-trigLevel =   - 0.05
+trigCh = 'Ch2' # string with trigger channel number [CH1..CH4]
+trigLevel =   - 0.02
 
 
 
