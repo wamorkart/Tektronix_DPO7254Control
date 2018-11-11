@@ -15,9 +15,10 @@ A quick guide to acuire data with the DPO7254 Tektronix oscilloscope, convert th
       **Remember:** <br />
       * Number of files generated = # of triggers(totalNumber) / # of trigger for each file(numFrames)<br />
       * numFrames is not striclty required, set to 500 by default
-      * Each trigger size is 1KB. Check the scope available disk's space from time to time. <br /><br />
+      * Each trigger size is 1KB. Check the scope available disk's space from time to time.
       * the possible option for trigCh are: CH1,CH2,CH3,CH4,AUX
-      * If no arguments are given the script set the default trigger to -50 mv AUX (external trigger)
+      * If no arguments are given the script set the default trigger to -50 mv AUX (external trigger) <br /><br />
+      
       
       
       
