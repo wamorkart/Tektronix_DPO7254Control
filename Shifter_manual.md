@@ -65,8 +65,8 @@ To reconstruct root files from the RAW '.wfm' files:
 - cd /Tektronix_DPO7254Control/Reconstruction
 - source ../includes/CMSTimingSetup.sh
 - source run_conversion.sh ## takes all the file not yet converted and convert them
-- cd $FNAL_SCOPE_DIR *### the output folder is ${FNAL_SCOPE_DIR}* 
+* The file are in the folder $FNAL_SCOPE_DIR 
 
   
-   
-
+### Run the analysis
+- cd /Tektronix_DPO7254Control/Reconstruction
