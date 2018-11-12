@@ -143,7 +143,11 @@ date = datetime.datetime.now()
 
 logf.write("\n\n#### SCOPE LOGBOOK -- RUN NUMBER {} ####\n\n".format(runNumber))
 logf.write("Date:\t{}\n".format(date))
+logf.write("---------------------------------------------------------\n")
+logf.write("Total number of triggers acquired: {} \n".format(totalNumber))
+logf.write("Number of triggers per file: {} \n".format(numFrames))
 logf.write("---------------------------------------------------------\n\n")
+
 
 
 """#################SCOPE HORIZONTAL SETUP#################"""
@@ -266,8 +270,8 @@ print('Start copying the file on lxplus....')
     
 shutil.copytree(path_ftbf,path_lxplus)  
      
-print('Waveform copied.\n')
-
+print('Waveforms copied.\n')
+print('Ending Run {}.\n'.format(runNumber))
 
 print("\n\n\n ********  DID YOU UPDATE THE LOGBOOK AND SPREADSHEET?? ******** \n\n")
 print("LogBook: https://docs.google.com/document/d/1PVd6DxdxLFYFbk_dmaxY3c2C5qMCfLAmNJD_r8xbN_4/edit#")
