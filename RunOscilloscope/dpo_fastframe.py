@@ -211,6 +211,7 @@ logf.write('- Trigger Channel set to %s\n'%(trigCh))
 logf.write('- Trigger scale set to %s V\n\n\n\n'%(trigprint))
 
 
+
 """#################TERMINATIONS SETUP#################"""
 dpo.write(':CH1:TER 1;:CH2:TER 50;:CH3:TER 50;:CH4:TER 50');
 
