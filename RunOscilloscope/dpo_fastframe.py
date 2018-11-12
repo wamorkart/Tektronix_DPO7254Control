@@ -109,6 +109,7 @@ vPos_ch4 = 4  # in Divisions
 trigCh = (args.trigCh) # string with trigger channel number [CH1..CH4]
 trigLevel = float(args.trig)
 
+date = datetime.datetime.now()
 
 
 if totalNumber < numFrames:
@@ -125,6 +126,9 @@ with open('runNumber.txt') as file:
     runNumber = int(file.read())
 print('######## Starting RUN {} ########\n'.format(runNumber))
 print('---------------------\n')
+print(date)
+print('---------------------\n')
+
 
 with open('runNumber.txt','w') as file:
     file.write(str(runNumber+1))
@@ -139,7 +143,7 @@ log_path = "Logbook.txt"
 
 #Write in the log file
 logf = open(log_path,"a+")
-date = datetime.datetime.now()
+
 
 logf.write("\n\n#### SCOPE LOGBOOK -- RUN NUMBER {} ####\n\n".format(runNumber))
 logf.write("Date:\t{}\n".format(date))
