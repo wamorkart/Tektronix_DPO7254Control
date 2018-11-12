@@ -80,7 +80,7 @@ print(dpo.query('*idn?'))
 parser = argparse.ArgumentParser(description='Run info.')
 
 parser.add_argument('--totalNumber', metavar='tot', type=int,help='totalNumber of data point',required=True)
-parser.add_argument('--numFrames',metavar='Frames', type=str,default = 500, help='numFrames (default 20000)',required=False)
+parser.add_argument('--numFrames',metavar='Frames', type=str,default = 500, help='numFrames (default 500)',required=False)
 parser.add_argument('--trigCh',metavar='trigCh', type=str, default='AUX',help='trigger Channel (default Aux (-0.1V))',required=False)
 parser.add_argument('--trig',metavar='trig', type=float, default= -0.05, help='trigger value in V (default Aux (-0.05V))',required=False)
 
@@ -94,10 +94,10 @@ numFrames = int(args.numFrames) # number of frames for each file
 totalNumber = int(args.totalNumber) # total number of frames
 
 #vertical scale
-vScale_ch1 = 0.05 # in Volts
-vScale_ch2 = 0.01 # in Volts
-vScale_ch3 = 0.01 # in Volts
-vScale_ch4 = 0.01 # in Volts
+vScale_ch1 = 0.05 # in Volts for division
+vScale_ch2 = 0.01 # in Volts for division
+vScale_ch3 = 0.01 # in Volts for division
+vScale_ch4 = 0.01 # in Volts for division
 
 #vertical position
 vPos_ch1 = 4  # in Divisions
@@ -217,7 +217,7 @@ logf.write('- Trigger scale set to %s V\n\n\n\n'%(trigprint))
 
 
 """#################TERMINATIONS SETUP#################"""
-dpo.write(':CH1:TER 1;:CH2:TER 50;:CH3:TER 50;:CH4:TER 50');
+dpo.write(':CH1:TER 50;:CH2:TER 50;:CH3:TER 50;:CH4:TER 50');
 
 print("# TERMINATIONS SETUP #")
 print('All The Terminations set to 50 ohm.\n')
@@ -265,8 +265,8 @@ while (i*numFrames<totalNumber) and stop_asap==False:
 import time              
     
     
-path_ftbf = "/Tektronix/run_scope{}".format(runNumber)
-path_lxplus = ("/lxplus/Scope_standalone/RAW/run_scope%d"%(runNumber))
+path_ftbf = "/Tektronix/run_scope{}".format(runNumber) #otsdaq path (shared folder with the scope)
+path_lxplus = ("/lxplus/Scope_standalone/RAW/run_scope%d"%(runNumber)) # lxplus folder mounted on otsdaq
 
 while len(os.listdir(path_ftbf)) < 4*i: 
     time.sleep(1)
@@ -274,7 +274,7 @@ while len(os.listdir(path_ftbf)) < 4*i:
 print('Start copying the file on lxplus....')
     
 shutil.copytree(path_ftbf,path_lxplus)  
-     
+
 print('Waveforms copied.\n')
 print('Ending Run {}.\n'.format(runNumber))
 
