@@ -2,8 +2,7 @@
 
 Code for timing analysis. Author: **Nicola Minafra**
 
-1.source ../includes.CMSTimingSetup.sh
-2. 
+* source ../includes.CMSTimingSetup.sh
 * Usage:
 ```
 $> make
