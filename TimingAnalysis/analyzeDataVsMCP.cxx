@@ -214,17 +214,17 @@ int main (int argc, char** argv)
 
   f_root->Close();
 
-  if (empty || full || low) {
-    std::string newfilename(filename);
-    if (newfilename.size () > 6)  newfilename.resize (newfilename.size () - 5);
-    if (empty)
-      newfilename.append("_empty.root");
-    else if (low)
-      newfilename.append("_low.root");
-    else if (full)
-      newfilename.append("_good.root");
-    std::rename(filename.c_str(), newfilename.c_str());
-  }
+  // if (empty || full || low) {
+  //   std::string newfilename(filename);
+  //   if (newfilename.size () > 6)  newfilename.resize (newfilename.size () - 5);
+  //   if (empty)
+  //     newfilename.append("_empty.root");
+  //   else if (low)
+  //     newfilename.append("_low.root");
+  //   else if (full)
+  //     newfilename.append("_good.root");
+  //   std::rename(filename.c_str(), newfilename.c_str());
+  // }
 
   return 0;
 }
