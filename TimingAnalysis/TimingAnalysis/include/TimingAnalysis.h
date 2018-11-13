@@ -163,8 +163,8 @@ class TimingAnalysis : public pulse
       double ch2_baselineRms = .0;
 
       // Histo declaration, create new for a new file
-      TH1D h_deltat_SimpleThreshold("h_deltat_SimpleThreshold","Time Difference wrt MCP using simple threshold; t(s)",2000,-30e-9,-10e-9);
-      TH1D h_deltat_Smart("h_deltat_Smart","Time Difference wrt MCP; t(s)",2000,-30e-9,-10e-9);
+      TH1D h_deltat_SimpleThreshold("h_deltat_SimpleThreshold","Time Difference wrt MCP using simple threshold; t(s)",2000,-10e-9,10e-9);
+      TH1D h_deltat_Smart("h_deltat_Smart","Time Difference wrt MCP; t(s)",2000,-10e-9,10e-9);
       TH1D h_TimeFromTrigger_Det0("h_TimeFromTrigger_Det0","Time Difference bw MCP and trigger; t(s)",1000,-10e-9,50e-9);
       TH1D h_TimeFromTrigger_Det1("h_TimeFromTrigger_Det1","Time Difference bw DUT and trigger; t(s)",1000,-10e-9,50e-9);
 
@@ -380,12 +380,12 @@ class TimingAnalysis : public pulse
         	    h_deltat_Smart.Fill(T_Sample_B-T_Sample_A);
         	    g_channels_corrlations.SetPoint(ChannelsCorrelations_i++,T_Sample_A,T_Sample_B);
 
-        	    if(ch2_tot>0.3e-9 && ch2_tot<20e-9 && ch1_tot>0.3e-9 && ch1_tot<20e-9 && TMath::Abs(T_threshold_A-T_Sample_B)<20e-9) {
+        	    if(ch2_tot>0.3e-9 && ch2_tot<20e-9 && ch1_tot>0.3e-9 && ch1_tot<20e-9 && TMath::Abs(T_threshold_A-T_Sample_B)<50e-9) {
         	      g_correctionsX.SetPoint(corrections_point,ch1_tot*1e9,(T_threshold_A-T_Sample_B)*1e9);
         	      g_correctedX.SetPoint(corrections_point++,ch1_tot*1e9,(T_Sample_A-T_Sample_B)*1e9);
         	    }
 
-        	    if(ch1_tot>0.3e-9 && ch1_tot<20e-9 && ch2_tot>0.3e-9 && ch2_tot<20e-9 && TMath::Abs(T_threshold_B-T_Sample_A)<20e-9) {
+        	    if(ch1_tot>0.3e-9 && ch1_tot<20e-9 && ch2_tot>0.3e-9 && ch2_tot<20e-9 && TMath::Abs(T_threshold_B-T_Sample_A)<50e-9) {
         	      g_correctionsY.SetPoint(corrections_point_Y,ch2_tot*1e9,(T_threshold_B-T_Sample_A)*1e9);
         	      g_correctedY.SetPoint(corrections_point_Y++,ch2_tot*1e9,(T_Sample_B-T_Sample_A)*1e9);
         	    }
