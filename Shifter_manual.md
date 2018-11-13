@@ -84,7 +84,8 @@ To reconstruct root files from the RAW '.wfm' files:
 - source run_conversion.sh /eos/cms/store/group/phys_susy/razor/FNAL_TB_1811/Scope_standalone/RAW/run_scope{}/
 
 * The input files are in the folder $FNAL_SCOPE_DIR (/eos/cms/store/group/phys_susy/razor/FNAL_TB_1811/Scope_standalone/RAW/run_scope{}/)
-* The output files are in the folder /eos/cms/store/group/phys_susy/razor/FNAL_TB_1811/Scope_standalone/ROOT/
+* The output files are in the folder /eos/cms/store/group/phys_susy/razor/FNAL_TB_1811/Scope_standalone/ROOT/<br /><br /><br /><br />
+
 
 
 ## LOCAL ACQUISITION
