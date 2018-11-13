@@ -2,6 +2,8 @@
 
 Code for timing analysis. Author: **Nicola Minafra**
 
+1.source ../includes.CM
+
 * Usage:
 ```
 $> make
