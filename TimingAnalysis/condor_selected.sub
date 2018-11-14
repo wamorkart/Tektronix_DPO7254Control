@@ -1,0 +1,12 @@
+executable            = /afs/cern.ch/user/n/nminafra/Work/TimingKU/FNAL_Nov18/Tektronix_DPO7254Control/TimingAnalysis/run_selected.sh
+arguments             = $(ProcId)
+output                = /afs/cern.ch/user/n/nminafra/Work/TimingKU/FNAL_Nov18/Tektronix_DPO7254Control/TimingAnalysis/Condor/Logs/run_$(ProcId).out
+error                 = /afs/cern.ch/user/n/nminafra/Work/TimingKU/FNAL_Nov18/Tektronix_DPO7254Control/TimingAnalysis/Condor/Logs/run_$(ProcId).err
+log                   = /afs/cern.ch/user/n/nminafra/Work/TimingKU/FNAL_Nov18/Tektronix_DPO7254Control/TimingAnalysis/Condor/Logs/run_$(ProcId).log
+
+request_cpus = 1
++JobFlavour = "espresso"
++Requirements           = OpSysAndVer =?= "SLCern6"
+
+
+queue 3
