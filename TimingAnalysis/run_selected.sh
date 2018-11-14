@@ -18,15 +18,15 @@ channels=(1                   1                       1                       1 
           3                   3                       3                       3                       3                       3                      \
           3                   3                       3                       3                       3                       3  )
 thresholds=(
-      -0.012                  -0.012                  -0.012                  -0.012                  -0.012                  -0.012 \
-      -0.012                  -0.012                  -0.012                  -0.012                  -0.012                  -0.012 \
-      -0.012                  -0.012                  -0.012                   \
-      -0.012                  -0.012                  -0.012                  -0.012                  -0.012                  -0.012 \
-      -0.012                  -0.012                  -0.012                  -0.012                  -0.012                  -0.012 )
+      -0.016                  -0.018                  -0.018                  -0.02                   -0.02                   -0.022 \
+      -0.014                  -0.014                  -0.014                  -0.018                  -0.02                   -0.02  \
+      -0.02                   -0.02                   -0.02                   \
+      -0.01                   -0.01                   -0.01                   -0.011                  -0.011                  -0.01  \
+      -0.01                   -0.011                  -0.011                  -0.011                  -0.011                  -0.011 )
 
 echo ${runs[${run_i}]} ${channels[${run_i}]} ${thresholds[${run_i}]}
 
-${CODE_DIR}/analyzeDataVsMCP -f ${channels[$run_i]} -t ${thresholds[$run_i]} -c 0.5 -s 0.088 --lowpass 00e6 --MCPsaturation 0.4 --MCPthreshold -0.05 -i ${FNAL_SCOPE_DIR}/Analyzed/merged/${runs[${run_i}]}.root -o ${FNAL_SCOPE_DIR}/Analyzed/results/
+${CODE_DIR}/analyzeDataVsMCP -f ${channels[$run_i]} -t ${thresholds[$run_i]} -c 0.5 -s 0.088 --lowpass 700e6 --MCPsaturation 0.4 --MCPthreshold -0.05 -i ${FNAL_SCOPE_DIR}/Analyzed/merged/${runs[${run_i}]}.root -o ${FNAL_SCOPE_DIR}/Analyzed/results/
 
 # for (( run_i=0; run_i<27; run_i++ ));
 # do

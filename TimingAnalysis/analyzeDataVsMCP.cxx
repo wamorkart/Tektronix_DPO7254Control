@@ -83,8 +83,8 @@ int main (int argc, char** argv)
   TTree* input_tree = nullptr;
   input_file->GetObject("pulse",input_tree);
 
-  // if (input_tree->GetEntries() < 1000) return 0;
-  // else std::cout<<"SELECTED: "<< filename << std::endl;
+  if (input_tree->GetEntries() < 1000) return 0;
+  else std::cout<<"SELECTED: "<< filename << std::endl;
 
   TimingAnalysis example_analyzeData(input_tree);
 
