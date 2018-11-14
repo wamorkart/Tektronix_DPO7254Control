@@ -9,4 +9,4 @@ request_cpus = 1
 +Requirements           = OpSysAndVer =?= "SLCern6"
 
 
-queue 3
+queue 28

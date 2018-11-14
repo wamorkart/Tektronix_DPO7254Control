@@ -7,11 +7,28 @@ CODE_DIR=/afs/cern.ch/user/n/nminafra/Work/TimingKU/FNAL_Nov18/Tektronix_DPO7254
 
 run_i=$(( $1 + 0 ))
 
-runs=(W5_1_lp_195V_ch1, W5_1_lp_185V_ch1, W5_1_lp_175V_ch1)
-channels=(1 1 1)
-thresholds=(-0.012 -0.012 -0.012)
+runs=(W5_1_LP_165V_Ch1        W5_1_LP_175V_Ch1        W5_1_LP_185V_Ch1        W5_1_LP_195V_Ch1        W5_1_LP_200V_Ch1        W5_1_LP_205V_Ch1 \
+      W5_1_LP8e14_315V_Ch2    W5_1_LP8e14_335V_Ch2    W5_1_LP8e14_355V_Ch2    W5_1_LP8e14_365V_Ch2    W5_1_LP8e14_375V_Ch2    W5_1_LP8e14_380V_Ch2 \
+      W5_1_LP8e14_390V_Ch2    W5_1_LP8e14_395V_Ch2    W5_1_LP8e14_400V_Ch2  \
+      W5_1_LP1p5e15_350V_Ch3  W5_1_LP1p5e15_370V_Ch3  W5_1_LP1p5e15_390V_Ch3  W5_1_LP1p5e15_400V_Ch3  W5_1_LP1p5e15_410V_Ch3  W5_1_LP1p5e15_415V_Ch3 \
+      W5_1_LP1p5e15_425V_Ch3  W5_1_LP1p5e15_435V_Ch3  W5_1_LP1p5e15_445V_Ch3  W5_1_LP1p5e15_455V_Ch3  W5_1_LP1p5e15_465V_Ch3  W5_1_LP1p5e15_485V_Ch3 )
+channels=(1                   1                       1                       1                       1                       1                      \
+          2                   2                       2                       2                       2                       2                      \
+          2                   2                       2                       \
+          3                   3                       3                       3                       3                       3                      \
+          3                   3                       3                       3                       3                       3  )
+thresholds=(
+      -0.012                  -0.012                  -0.012                  -0.012                  -0.012                  -0.012 \
+      -0.012                  -0.012                  -0.012                  -0.012                  -0.012                  -0.012 \
+      -0.012                  -0.012                  -0.012                   \
+      -0.012                  -0.012                  -0.012                  -0.012                  -0.012                  -0.012 \
+      -0.012                  -0.012                  -0.012                  -0.012                  -0.012                  -0.012 )
 
+echo ${runs[${run_i}]} ${channels[${run_i}]} ${thresholds[${run_i}]}
 
-echo run_scope${run_i}.root
+${CODE_DIR}/analyzeDataVsMCP -f ${channels[$run_i]} -t ${thresholds[$run_i]} -c 0.5 -s 0.088 --lowpass 00e6 --MCPsaturation 0.4 --MCPthreshold -0.05 -i ${FNAL_SCOPE_DIR}/Analyzed/merged/${runs[${run_i}]}.root -o ${FNAL_SCOPE_DIR}/Analyzed/results/
 
-${CODE_DIR}/analyzeDataVsMCP -f ${channels[$run_i]} -t ${thresholds[$run_i]} -c 0.5 -s 0.088 --lowpass 00e6 --MCPsaturation 0.4 --MCPthreshold -0.05 -i ${FNAL_SCOPE_DIR}/Analyzed/merged/runs[${run_i}].root -o ${FNAL_SCOPE_DIR}/Analyzed/results/
+# for (( run_i=0; run_i<27; run_i++ ));
+# do
+#   echo ${CODE_DIR}/analyzeDataVsMCP -f ${channels[$run_i]} -t ${thresholds[$run_i]} -c 0.5 -s 0.088 --lowpass 00e6 --MCPsaturation 0.4 --MCPthreshold -0.05 -i ${FNAL_SCOPE_DIR}/Analyzed/merged/${runs[${run_i}]}.root -o ${FNAL_SCOPE_DIR}/Analyzed/results/
+# done
