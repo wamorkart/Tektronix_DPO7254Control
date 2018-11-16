@@ -410,7 +410,8 @@ class TimingAnalysis : public pulse
         std::cout << "Completed!" << std::endl;
         std::cout << "RMS Det1-Det0 using simple threshold:\t" << h_deltat_SimpleThreshold.GetRMS() << std::endl;
         std::cout << "RMS Det1-Det0 using smart algorithm:\t" << h_deltat_Smart.GetRMS() << std::endl;
-        TF1 gausDt("gausDt","gaus",h_deltat_Smart.GetMean() - 0.5e-9,h_deltat_Smart.GetMean() + 0.5e-9);
+        float centerOfFit = h_deltat_Smart.GetBinCenter(h_deltat_Smart.GetMaximumBin());
+        TF1 gausDt("gausDt","gaus",centerOfFit - 0.5e-9,centerOfFit + 0.5e-9);
         h_deltat_Smart.Fit(&gausDt,"RFQ");
         TF1 gausDt2("gausDt2","gaus",gausDt.GetParameter(1) - 2*gausDt.GetParameter(2), gausDt.GetParameter(1) + 2*gausDt.GetParameter(2));
         h_deltat_Smart.Fit(&gausDt2,"RFQ");
