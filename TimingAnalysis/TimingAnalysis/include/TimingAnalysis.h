@@ -410,10 +410,13 @@ class TimingAnalysis : public pulse
         std::cout << "Completed!" << std::endl;
         std::cout << "RMS Det1-Det0 using simple threshold:\t" << h_deltat_SimpleThreshold.GetRMS() << std::endl;
         std::cout << "RMS Det1-Det0 using smart algorithm:\t" << h_deltat_Smart.GetRMS() << std::endl;
-        TF1 gausDt("gausDt","gaus",h_deltat_Smart.GetMean() - 2*h_deltat_Smart.GetRMS(),h_deltat_Smart.GetMean() + 2*h_deltat_Smart.GetRMS());
+        TF1 gausDt("gausDt","gaus",h_deltat_Smart.GetMean() - 0.5e-9,h_deltat_Smart.GetMean() + 0.5e-9);
         h_deltat_Smart.Fit(&gausDt,"RFQ");
-        parameters.errorOnSigma = gausDt.GetParError(2);
-        std::cout << "############ RESULTS: Time difference " << 1e12*gausDt.GetParameter(2) << " +- " << 1e12*gausDt.GetParError(2) << " ps, using " << parameters.found << " coincidences" << std::endl;
+        TF1 gausDt2("gausDt2","gaus",gausDt.GetParameter(1) - 2*gausDt.GetParameter(2), gausDt.GetParameter(1) + 2*gausDt.GetParameter(2));
+        h_deltat_Smart.Fit(&gausDt2,"RFQ");
+        parameters.errorOnSigma = 1e12*gausDt2.GetParError(2);
+
+        std::cout << "############ RESULTS: Time difference " << 1e12*gausDt2.GetParameter(2) << " +- " << 1e12*gausDt2.GetParError(2) << " ps, using " << parameters.found << " coincidences" << std::endl;
 
         for(int itx=0; itx<bidimHistogramVec.size(); ++itx) {
         	if (bidimHistogramVec.at(itx)->GetEntries() > 10) {
@@ -489,7 +492,7 @@ class TimingAnalysis : public pulse
         std::cout << "RealTime= " << m_timer.RealTime() << "seconds, CpuTime= " << m_timer.CpuTime() << "seconds" << std::endl;
         m_timer.Reset();
         m_timer.Start();
-        return gausDt.GetParameter(2);
+        return gausDt2.GetParameter(2);
     }
 
 
