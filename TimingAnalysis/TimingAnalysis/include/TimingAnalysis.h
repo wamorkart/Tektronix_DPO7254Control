@@ -164,7 +164,7 @@ class TimingAnalysis : public pulse
 
       // Histo declaration, create new for a new file
       TH1D h_deltat_SimpleThreshold("h_deltat_SimpleThreshold","Time Difference wrt MCP using simple threshold; t(s)",2000,-10e-9,10e-9);
-      TH1D h_deltat_Smart("h_deltat_Smart","Time Difference wrt MCP; t(s)",2000,-10e-9,10e-9);
+      TH1D h_deltat_Smart("h_deltat_Smart","Time Difference wrt MCP; t(s)",5000,-10e-9,10e-9);
       TH1D h_TimeFromTrigger_Det0("h_TimeFromTrigger_Det0","Time Difference bw MCP and trigger; t(s)",1000,-10e-9,50e-9);
       TH1D h_TimeFromTrigger_Det1("h_TimeFromTrigger_Det1","Time Difference bw DUT and trigger; t(s)",1000,-10e-9,50e-9);
 
@@ -466,7 +466,11 @@ class TimingAnalysis : public pulse
         langau1->SetNpx(10000);
         langau1->SetParNames("Width","MP","Area","GSigma");
         // langau1->SetParameters(0.05*parameters.rangeMax_ch0,0.25*parameters.rangeMax_ch0,50,h_pedestal_Det1.GetRMS());
-        langau1->SetParameters(0.001,0.02,0.5,h_pedestal_Det1.GetRMS());
+        langau1->SetParameters(0.005,0.03,0.5,h_pedestal_Det1.GetRMS());
+	langau1->SetParLimits(0,0,0.01);
+	langau1->SetParLimits(1,0,0.2);
+	langau1->SetParLimits(2,0,10);
+	langau1->SetParLimits(3,0,0.05);
         langau1->SetRange(parameters.rangeMin_ch1,parameters.rangeMax_ch1);
         // langau1->FixParameter(3,h_pedestal_Det0.GetRMS());
         h_max_selected_Det1.Fit(langau1,"RFB");
