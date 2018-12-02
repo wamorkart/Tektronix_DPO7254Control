@@ -162,16 +162,31 @@ class TimingAnalysis : public pulse
       double ch1_baselineRms = .0;
       double ch2_baselineRms = .0;
 
+
+      // TFile outTreeFile("/eos/user/n/nminafra/www/ML/tree_v1.root","recreate");
+      // outTreeFile.cd();
+      // TTree outTree("dataset","dataset_Nov2018");
+      Int_t time_reference=0;
+      Int_t time_samples[500];
+      Int_t voltage_samples[500];
+      // outTree.Branch("time_reference", &time_reference, "time_reference/I");
+      // outTree.Branch("time_samples", time_samples, "time_samples[500]/I");
+      // outTree.Branch("voltage_samples", voltage_samples, "voltage_samples[500]/I");
+
+      out_f->cd();
+
+
       // Histo declaration, create new for a new file
       TH1D h_deltat_SimpleThreshold("h_deltat_SimpleThreshold","Time Difference wrt MCP using simple threshold; t(s)",2000,-10e-9,10e-9);
       TH1D h_deltat_Smart("h_deltat_Smart","Time Difference wrt MCP; t(s)",5000,-10e-9,10e-9);
       TH1D h_TimeFromTrigger_Det0("h_TimeFromTrigger_Det0","Time Difference bw MCP and trigger; t(s)",1000,-10e-9,50e-9);
       TH1D h_TimeFromTrigger_Det1("h_TimeFromTrigger_Det1","Time Difference bw DUT and trigger; t(s)",1000,-10e-9,50e-9);
 
-      TH1D h_max_Det0("h_max_Det0","Amplitude MCP; V",200,0,2*parameters.rangeMax_ch0);
-      TH1D h_max_Det1("h_max_Det1","",200,0,2*parameters.rangeMax_ch1);
-      TH1D h_max_selected_Det0("h_max_selected_Det0","Amplitude of selected samples (MCP); V",200,0,2*parameters.rangeMax_ch0);
-      TH1D h_max_selected_Det1("h_max_selected_Det1","Amplitude of selected samples (DUT); V",100,0,2*parameters.rangeMax_ch1);
+      TH1D h_max_Det0("h_max_Det0","Amplitude MCP; V",200,0,parameters.rangeMax_ch0);
+      TH1D h_max_Det1("h_max_Det1","",100,0,parameters.rangeMax_ch1);
+      TH1D h_max_selected_Det0("h_max_selected_Det0","Amplitude of selected samples (MCP); V",200,0,parameters.rangeMax_ch0);
+      TH1D h_max_selected_Det1("h_max_selected_Det1","Amplitude of selected samples (DUT); V",100,0,parameters.rangeMax_ch1);
+      TH1D integral_Det1("integral_Det1","Integral (DUT); ??",1000,-1,1);
       TH1D h_baseline_Det0("h_baseline_Det0","Baseline of MCP; V",200,-0.01,0.01);
       TH1D h_baseline_Det1("h_baseline_Det1","Baseline of DUT; V",200,-0.01,0.01);
       TH1D h_pedestal_Det0("h_pedestal_Det0","Pedestal (RMS before pulse) of MCP; V",1000,-0.1,0.1);
@@ -220,6 +235,8 @@ class TimingAnalysis : public pulse
       g_deltaTwithTime.SetName("DeltaT");
       TGraph g_rmswithTime;
       g_rmswithTime.SetName("RMS");
+      TGraph g_noiseDet1WithTime;
+      g_noiseDet1WithTime.SetName("noise_ch1");
       TGraph g_maximum0;
       g_maximum0.SetName("MaximumMCPVsTime");
       int g_maximum0_point=0;
@@ -294,6 +311,10 @@ class TimingAnalysis : public pulse
       	  DataSamplesA.push_back( (double) channel[ChannelMeasureA][i] );
       	  DataSamplesB.push_back( (double) channel[ChannelMeasureB][i] );
       	}
+        for (int i=0; i< 500; ++i) {
+          time_samples[i] = (Int_t) (1e12 * (time[0][i+200]-time[0][0]));
+          voltage_samples[i] = (Int_t) (1e6 * channel[ChannelMeasureB][i+200]);
+      	}
 
 
     	  parameters.detectorNumber=0;
@@ -362,6 +383,14 @@ class TimingAnalysis : public pulse
       	    h_TimeFromTrigger_Det1.Fill(T_threshold_B);
       	    ++coincidences;
 
+            TGraph charge_tg;
+            // for (int shift=0; shift<TimeSamplesB.size(); ++shift) {
+            for (int shift=500; shift<550; ++shift) {
+              charge_tg.SetPoint(shift-500,1e9*(TimeSamplesB.at(shift)-TimeSamplesB.at(0)),DataSamplesB.at(shift));
+            }
+            integral_Det1.Fill(charge_tg.Integral());
+
+
         	  if (plotted<10 ) {
         	    for (int shift=0; shift<TimeSamplesB.size(); ++shift) {
         	      interp_th->SetPoint(point_gr++,1e9*(TimeSamplesB.at(shift)-TimeSamplesB.at(0)),-1+DataSamplesB.at(shift));
@@ -372,10 +401,15 @@ class TimingAnalysis : public pulse
 
         	//Select couple of hits
         	h_coincidences.Fill(coincidences);
-        	g_rmswithTime.SetPoint(pointCorr2++, eventCounter, h_deltat_Smart.GetRMS());
+        	g_rmswithTime.SetPoint(pointCorr2, eventCounter, h_deltat_Smart.GetRMS());
+        	g_noiseDet1WithTime.SetPoint(pointCorr2++, eventCounter, ch2_baselineRms);
 
-        	if (coincidences==2 && TMath::Abs(T_Sample_B-T_Sample_A)<100e-9 ) {
+        	if (coincidences==2 && TMath::Abs(T_Sample_B-T_Sample_A)<10e-9 ) {
         	  if (T_Sample_A!=-1 && T_Sample_B!=-1) {
+              time_reference = (Int_t) (1e12 * T_Sample_A);
+              // outTreeFile.cd();
+              // outTree.Fill();
+              // out_f->cd();
         	    g_deltaTwithTime.SetPoint(pointCorr++, ((double) eventCounter)/10000, (T_Sample_B-T_Sample_A)*1e9);
         	    h_deltat_Smart.Fill(T_Sample_B-T_Sample_A);
         	    g_channels_corrlations.SetPoint(ChannelsCorrelations_i++,T_Sample_A,T_Sample_B);
@@ -417,6 +451,8 @@ class TimingAnalysis : public pulse
         h_deltat_Smart.Fit(&gausDt2,"RFQ");
         parameters.errorOnSigma = 1e12*gausDt2.GetParError(2);
 
+        std::cout << "Integral: " << integral_Det1.GetRMS() << " ??" << std::endl;
+        std::cout << "NOISE of the baseline: " << 1e3 * h_baseline_Det1.GetMean() << " +- " << 1e3 * h_baseline_Det1.GetRMS() << " mV" << std::endl;
         std::cout << "############ RESULTS: Time difference " << 1e12*gausDt2.GetParameter(2) << " +- " << 1e12*gausDt2.GetParError(2) << " ps, using " << parameters.found << " coincidences" << std::endl;
 
         for(int itx=0; itx<bidimHistogramVec.size(); ++itx) {
@@ -466,7 +502,7 @@ class TimingAnalysis : public pulse
         langau1->SetNpx(10000);
         langau1->SetParNames("Width","MP","Area","GSigma");
         // langau1->SetParameters(0.05*parameters.rangeMax_ch0,0.25*parameters.rangeMax_ch0,50,h_pedestal_Det1.GetRMS());
-        langau1->SetParameters(0.005,0.03,0.5,h_pedestal_Det1.GetRMS());
+        langau1->SetParameters(0.015,0.015,0.5,h_pedestal_Det1.GetRMS());
 	langau1->SetParLimits(0,0,0.01);
 	langau1->SetParLimits(1,0,0.2);
 	langau1->SetParLimits(2,0,10);
@@ -485,12 +521,14 @@ class TimingAnalysis : public pulse
 
         g_deltaTwithTime.Write();
         g_rmswithTime.Write();
+        g_noiseDet1WithTime.Write();
         g_maximum0.Write();
         g_maximum1.Write();
         g_tot_ch0.Write();
         g_tot_ch1.Write();
         out_f->Write();
 
+        // outTreeFile.Write();
         m_timer.Stop();
         std::cout << "********************************" << std::endl;
         std::cout << "INFORMATION :: Performance : " << std::endl;
