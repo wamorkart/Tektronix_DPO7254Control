@@ -9,7 +9,7 @@
 
 #include "tdrStyle.h"
 
-void summary_tp(){
+void summary_chargeFromAmplitude(){
   setTDRStyle();
 
   vector<string> name;
@@ -74,27 +74,27 @@ void summary_tp(){
   VErr[is].push_back(0);
 
 
-  yval[is].push_back(46.4438 );
-  yvalErr[is].push_back(1.17134);
-  yval[is].push_back(45.4057 );
-  yvalErr[is].push_back(1.16992);
-  yval[is].push_back(43.6634 );
-  yvalErr[is].push_back(1.09434);
-  yval[is].push_back(40.7761 );
-  yvalErr[is].push_back(0.772206);
-  yval[is].push_back(41.7737 );
-  yvalErr[is].push_back(0.551223);
-  yval[is].push_back(39.8184 );
-  yvalErr[is].push_back(0.834218);
-  yval[is].push_back(42.5196 );
-  yvalErr[is].push_back(0.206727);
-  yval[is].push_back(39.8544 );
-  yvalErr[is].push_back(1.0621);
-  yval[is].push_back(42.0533 );
-  yvalErr[is].push_back(1.24288);
+  yval[is].push_back(2.25252e-02 );
+  yvalErr[is].push_back(1.64969e-04);
+  yval[is].push_back(2.55813e-02 );
+  yvalErr[is].push_back(1.88229e-04);
+  yval[is].push_back(2.91893e-02  );
+  yvalErr[is].push_back(2.06974e-04);
+  yval[is].push_back(3.10914e-02 );
+  yvalErr[is].push_back(1.61677e-04 );
+  yval[is].push_back(3.36447e-02 );
+  yvalErr[is].push_back(1.16514e-04);
+  yval[is].push_back(3.49611e-02 );
+  yvalErr[is].push_back(1.92131e-04 );
+  yval[is].push_back(3.59310e-02);
+  yvalErr[is].push_back(4.77501e-04 );
+  yval[is].push_back(3.59053e-02 );
+  yvalErr[is].push_back(4.46575e-04 );
+  // yval[is].push_back(3.09809e-02  );
+  // yvalErr[is].push_back(3.06719e-04);
 
   for (auto& t : yval[is])
-    t = sqrt(t*t - 100);
+    t = 0.5*(1e3*t*0.246+1.83);
 
   is++;
   V.push_back(vector<double>());
@@ -131,33 +131,33 @@ void summary_tp(){
 
 
 
-  yval[is].push_back(48.999 );
-  yvalErr[is].push_back(1.19095);
-  yval[is].push_back(48.5973 );
-  yvalErr[is].push_back(1.23562);
-  yval[is].push_back(48.4654 );
-  yvalErr[is].push_back(1.21399);
-  yval[is].push_back(48.3089 );
-  yvalErr[is].push_back(0.979101);
-  yval[is].push_back(47.5185 );
-  yvalErr[is].push_back(0.657261);
-  yval[is].push_back(46.3252 );
-  yvalErr[is].push_back(0.931516);
-  yval[is].push_back(45.6495 );
-  yvalErr[is].push_back(1.18478);
-  yval[is].push_back(43.9925 );
-  yvalErr[is].push_back(1.07501);
-  yval[is].push_back(48.6965 );
-  yvalErr[is].push_back(1.20004);
-  yval[is].push_back(46.2849);
-  yvalErr[is].push_back(1.14169);
-  yval[is].push_back(41.2738 );
-  yvalErr[is].push_back(0.982247);
-  yval[is].push_back(43.8357);
-  yvalErr[is].push_back(0.224068);
+  yval[is].push_back(1.31070e-02 );
+  yvalErr[is].push_back(7.24291e-05 );
+  yval[is].push_back(1.42109e-02);
+  yvalErr[is].push_back(1.03516e-04 );
+  yval[is].push_back(1.53623e-02 );
+  yvalErr[is].push_back(1.08565e-04 );
+  yval[is].push_back(1.61414e-02 );
+  yvalErr[is].push_back(8.76676e-05 );
+  yval[is].push_back(1.68517e-02);
+  yvalErr[is].push_back(1.15587e-04 );
+  yval[is].push_back(1.71044e-02 );
+  yvalErr[is].push_back(1.08391e-04 );
+  yval[is].push_back(1.79184e-02 );
+  yvalErr[is].push_back(1.22456e-04);
+  yval[is].push_back(1.90364e-02  );
+  yvalErr[is].push_back(1.32178e-04  );
+  yval[is].push_back(2.05360e-02 );
+  yvalErr[is].push_back(1.76395e-04 );
+  yval[is].push_back(2.10836e-02);
+  yvalErr[is].push_back(1.66263e-04 );
+  yval[is].push_back(2.24543e-02);
+  yvalErr[is].push_back(1.58089e-04 );
+  yval[is].push_back(2.99671e-02 );
+  yvalErr[is].push_back(3.35493e-07);
 
   for (auto& t : yval[is])
-    t = sqrt(t*t - 100);
+    t = 0.5*(1e3*t*0.246+1.83);
 
   is++;
   V.push_back(vector<double>());
@@ -179,23 +179,21 @@ void summary_tp(){
   V[is].push_back(205.);
   VErr[is].push_back(0);
 
-  yval[is].push_back(46.5875 );
-  yvalErr[is].push_back(0.834218);
-  yval[is].push_back(45.1345 );
-  yvalErr[is].push_back(1.17157);
-  yval[is].push_back(43.0609 );
-  yvalErr[is].push_back(0.866089);
-  yval[is].push_back(41.4334 );
-  yvalErr[is].push_back(0.577254);
-  yval[is].push_back(42.6893 );
-  yvalErr[is].push_back(0.594459);
-  yval[is].push_back(43.352 );
-  yvalErr[is].push_back(0.21591);
+  yval[is].push_back(2.76008E-02 );
+  yvalErr[is].push_back(1.34845E-04);
+  yval[is].push_back(3.22510E-02 );
+  yvalErr[is].push_back(2.06303E-04 );
+  yval[is].push_back(3.54740E-02  );
+  yvalErr[is].push_back(1.87669E-04);
+  yval[is].push_back(4.04749E-02 );
+  yvalErr[is].push_back(2.75637E-04 );
+  yval[is].push_back(4.30925E-02 );
+  yvalErr[is].push_back(3.18254E-04);
+  yval[is].push_back(4.61990E-02 );
+  yvalErr[is].push_back(2.87924E-09 );
 
   for (auto& t : yval[is])
-    t = sqrt(t*t - 100);
-
-
+    t = 0.5*(1e3*t*0.246+1.83);
 
 
 
@@ -253,7 +251,7 @@ void summary_tp(){
     // cout << "6" << endl;
   }
 
-  TCanvas* cv = new TCanvas("cv_tp","cv_tp",800,600);
+  TCanvas* cv = new TCanvas("cv_charge","cv_charge",800,600);
   cv->SetTopMargin(0.09);
   cv->SetGrid();
 // cout << "7" << endl;
@@ -304,13 +302,27 @@ void summary_tp(){
   mg->GetXaxis()->CenterTitle();
   mg->GetXaxis()->SetTitleOffset(1.15);
   mg->GetXaxis()->SetTitleSize(0.04);
-  mg->GetYaxis()->SetTitle("Time Precision [ps]");
+  mg->GetYaxis()->SetTitle("Charge [fC]");
   mg->GetYaxis()->CenterTitle();
   mg->GetYaxis()->SetTitleOffset(1.2);
   mg->GetYaxis()->SetTitleSize(0.04);
-  mg->GetXaxis()->SetLimits(100,500);
-  mg->GetXaxis()->SetRangeUser(100,500);
-  mg->GetYaxis()->SetRangeUser(35,60);
+  mg->GetXaxis()->SetLimits(100,550);
+  mg->GetXaxis()->SetRangeUser(100,550);
+  mg->GetYaxis()->SetRangeUser(0,10);
+  gPad->Modified();
+
+  TGaxis *axis2 = new TGaxis(550,0,550, 10,0,20,410,"+L");
+  axis2->SetTitle("Gain");
+  axis2->CenterTitle();
+  axis2->SetTickLength(0);
+  axis2->SetTickSize(0);
+  axis2->SetTitleOffset(1.2);
+  axis2->SetTitleSize(0.04);
+  axis2->SetTitleFont(42);
+  axis2->SetLabelSize(0.04);
+  axis2->SetLabelFont(42);
+  axis2->Draw("same");
+
   gPad->Modified();
 
   // CMSmark("Fermilab TB Dec. '17 - Apr. '18 LGAD Summary");

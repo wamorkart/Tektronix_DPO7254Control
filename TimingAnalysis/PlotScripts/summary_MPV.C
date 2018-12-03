@@ -244,6 +244,7 @@ void summary_MPV(){
       gr[i]->SetLineColor(kBlue+2);
     }
     gr[i]->SetMarkerSize(2);
+    gr[i]->SetFillColor(kWhite);
     // gr[i]->SetLineWidth(0);
     // gr[i]->SetLineColor(kWhite);
     mg->Add(gr[i]);
