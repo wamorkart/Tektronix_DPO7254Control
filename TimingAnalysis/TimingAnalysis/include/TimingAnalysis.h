@@ -344,14 +344,6 @@ class TimingAnalysis : public pulse
       	    h_TimeFromTrigger_Det0.Fill(T_Sample_A);
       	    if (TMath::Abs(parameters.timeOverThreshold)<1) g_tot_ch0.SetPoint(point_tot_ch0++,parameters.timeOverThreshold,parameters.maximum);
       	    ++coincidences;
-            if (plotted<10) {
-              std::string namegr("ev");
-              namegr+=std::to_string(i_evt);
-              interp_th->SetName(namegr.c_str());
-              for (int shift=0; shift<TimeSamplesA.size(); ++shift) {
-                  interp_th->SetPoint(point_gr++,1e9*(TimeSamplesA.at(shift)-TimeSamplesA.at(0)),DataSamplesA.at(shift));
-              }
-            }
       	  }
 
 
@@ -360,6 +352,21 @@ class TimingAnalysis : public pulse
       	  ch2_maximum = parameters.maximum;
       	  ch2_tot = parameters.timeOverThreshold;
       	  ch2_baselineRms = parameters.baseline_rms;
+          if ( ch2_baselineRms>0.003 && plotted<40 && T_Sample_B!=-1) {
+            std::string namegr("ev");
+            namegr+=std::to_string(i_evt);
+            interp_th->SetName(namegr.c_str());
+            for (int shift=0; shift<TimeSamplesA.size(); ++shift) {
+                interp_th->SetPoint(point_gr++,1e9*(TimeSamplesA.at(shift)-TimeSamplesA.at(0)),-1+DataSamplesA.at(shift));
+            }
+            for (int shift=0; shift<TimeSamplesB.size(); ++shift) {
+              interp_th->SetPoint(point_gr++,1e9*(TimeSamplesB.at(shift)-TimeSamplesB.at(0)),DataSamplesB.at(shift));
+            }
+            interp_th->Write();
+            ++plotted;
+          }
+          if (ch2_baselineRms>0.003) T_Sample_B=-1;
+
       	  h_nOfPeaks_Det1.Fill(parameters.numberOfpeaks);
       	  h_baseline_Det1.Fill(parameters.baseline_rms);
       	  T_threshold_B = parameters.thresholdTime;
@@ -391,11 +398,11 @@ class TimingAnalysis : public pulse
             integral_Det1.Fill(charge_tg.Integral());
 
 
-        	  if (plotted<10 ) {
-        	    for (int shift=0; shift<TimeSamplesB.size(); ++shift) {
-        	      interp_th->SetPoint(point_gr++,1e9*(TimeSamplesB.at(shift)-TimeSamplesB.at(0)),-1+DataSamplesB.at(shift));
-        	    }
-        	  }
+        	  // if (plotted<10 ) {
+        	  //   for (int shift=0; shift<TimeSamplesB.size(); ++shift) {
+        	  //     interp_th->SetPoint(point_gr++,1e9*(TimeSamplesB.at(shift)-TimeSamplesB.at(0)),-1+DataSamplesB.at(shift));
+        	  //   }
+        	  // }
           }
 
 
@@ -433,11 +440,6 @@ class TimingAnalysis : public pulse
               h_deltat_SimpleThreshold.Fill(T_threshold_B-T_threshold_A);
           	  parameters.found++;
             }
-
-        	  if (plotted<10) {
-        	    interp_th->Write();
-        	    ++plotted;
-        	  }
         	}
         } //Loop end
 
