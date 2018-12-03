@@ -3,6 +3,7 @@
 
 FNAL_SCOPE_DIR=/eos/cms/store/group/phys_susy/razor/FNAL_TB_1811/Scope_standalone/
 CODE_DIR=/afs/cern.ch/user/n/nminafra/Work/TimingKU/FNAL_Nov18/Tektronix_DPO7254Control/TimingAnalysis/
+OUT_DIR=${CODE_DIR}/Results/
 # runs=($(ls -d ${FNAL_SCOPE_DIR}/ROOT/*.root))
 
 run_i=$(( $1 + 0 ))
@@ -20,13 +21,27 @@ channels=(1                   1                       1                       1 
 thresholds=(
       -0.016                  -0.018                  -0.018                  -0.02                   -0.02                   -0.022 \
       -0.014                  -0.014                  -0.014                  -0.018                  -0.02                   -0.02  \
-      -0.02                   -0.02                   -0.02                   \
+      -0.02                   -0.02                   -0.03                   \
       -0.01                   -0.01                   -0.01                   -0.011                  -0.011                  -0.01  \
       -0.01                   -0.011                  -0.011                  -0.011                  -0.011                  -0.011 )
 
+lowpass=(
+      700e6                 700e6                  700e6                  700e6                 700e6                  700e6 \
+      700e6                 700e6                  700e6                  700e6                 700e6                  700e6 \
+      700e6                 700e6                  700e6                  \
+      800e6                 800e6                  800e6                  800e6                  800e6                  800e6 \
+      800e6                 800e6                  800e6                  800e6                  800e6                  800e6 )
+
+cfd=(
+      0.3                     0.3                     0.3                     0.3                     0.3                     0.3    \
+      0.3                     0.3                     0.3                     0.3                     0.3                     0.3    \
+      0.3                     0.3                     0.3                     \
+      0.6                     0.6                     0.6                     0.6                     0.6                     0.6    \
+      0.6                     0.6                     0.6                     0.6                     0.6                     0.6    )
+
 echo ${runs[${run_i}]} ${channels[${run_i}]} ${thresholds[${run_i}]}
 
-${CODE_DIR}/analyzeDataVsMCP -f ${channels[$run_i]} -t ${thresholds[$run_i]} -c -0.1 -s 0.088 --lowpass 1e9 --MCPsaturation 0.4 --MCPthreshold -0.05 -i ${FNAL_SCOPE_DIR}/Analyzed/merged/${runs[${run_i}]}.root -o ${FNAL_SCOPE_DIR}/Analyzed/resultsCFDs/
+${CODE_DIR}/analyzeDataVsMCP -f ${channels[$run_i]} -t ${thresholds[$run_i]} -c ${cfd[$run_i]} -s 0.088 --lowpass ${lowpass[$run_i]} --MCPsaturation 0.4 --MCPthreshold -0.05 -i ${FNAL_SCOPE_DIR}/Analyzed/merged/${runs[${run_i}]}.root -o ${OUT_DIR}
 
 # for (( run_i=0; run_i<27; run_i++ ));
 # do
