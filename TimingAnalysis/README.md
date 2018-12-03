@@ -10,7 +10,7 @@ $> ./example_analyzeData --help
   Allowed options:
   -h [ --help ]                         produce help message
   -f [ --firstchannel ] arg (=0)        Channel under analysis (the other channel is set to MCP by default)
-  -s [ --saturation ] arg (=1)          Saturation channel under analysis 
+  -s [ --saturation ] arg (=1)          Saturation channel under analysis
   -c [ --cfd_threshold ] arg (=0.4)     CFD fraction
   -t [ --threshold_ch1 ] arg (=-0.1)    Threshold for ch under analysis, negative for negative signals (V)
   -p [ --lowpass ] arg (=0)             Lowpass filter frequency (Hz)
@@ -20,7 +20,7 @@ $> ./example_analyzeData --help
   --MCPsaturation                       Cut saturation MCP
   -o [ --outputdir ] arg                output directory (=~/Work/public/Fermilab/Results)
   -i [ --filename ] arg                 input file
-        
+
 ```
 
 For Fermilab analysis:
@@ -41,4 +41,37 @@ on lxplus:
 ```
 $> . /cvmfs/sft.cern.ch/lcg/releases/LCG_88/ROOT/6.08.06/x86_64-slc6-gcc62-opt/ROOT-env.sh
 $> make
+
+To run the analysis like it is:
+$> . run_withLowpass.sh N
+
+with N:0..26 to choose the input file:
+0  : W5_LP_165V
+1  : W5_LP_175V
+2  : W5_LP_185V
+3  : W5_LP_195V
+4  : W5_LP_200V
+5  : W5_LP_205V
+6  : W5_LP8e14_315V
+7  : W5_LP8e14_335V
+8  : W5_LP8e14_355V
+9  : W5_LP8e14_365V
+10 : W5_LP8e14_375V
+11 : W5_LP8e14_380V
+12 : W5_LP8e14_390V
+13 : W5_LP8e14_395V
+14 : W5_LP8e14_400V
+15 : W5_LP1p5e15_350V
+16 : W5_LP1p5e15_370V
+17 : W5_LP1p5e15_390V
+18 : W5_LP1p5e15_400V
+19 : W5_LP1p5e15_410V
+20 : W5_LP1p5e15_415V
+21 : W5_LP1p5e15_425V
+22 : W5_LP1p5e15_435V
+23 : W5_LP1p5e15_445V
+24 : W5_LP1p5e15_455V
+25 : W5_LP1p5e15_465V
+26 : W5_LP1p5e15_485V
+
 ```
